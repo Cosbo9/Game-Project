@@ -50,4 +50,34 @@ class GameStateTest < ActiveSupport::TestCase
     assert(@full_test_state.is_board_full?)
   end
 
+  ###! Tests for winner logic below this line ###
+
+  
+  test "detects horizontal wins when piece placed on end" do
+    hori_test = GameState.new('R0,B0,R1,B1,R2,B2', 'R3')
+    hori_test.add_new_move
+    assert(hori_test.check_horizontal)
+  end
+
+  test "detects horizontal win when piece placed at beginning" do
+    hori_test = GameState.new('R1,B1,R2,B2,R3,B3', 'R0')
+    hori_test.add_new_move
+    assert(hori_test.check_horizontal)
+  end
+
+  test "detects horizontal win when piece placed in middle" do
+    hori_test = GameState.new('R1,B1,R3,B3,R4,B4', 'R2')
+    hori_test.add_new_move
+    assert(hori_test.check_horizontal)
+  end
+
+  test "horizontal check doesn't have false positives" do
+    hori_test = GameState.new('R1,B1,R3,B3,R4,B4', 'R5')
+    hori_test.add_new_move
+    assert_not(hori_test.check_horizontal)
+  end
+
+
+
+
 end

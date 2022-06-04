@@ -54,4 +54,45 @@ class GameState
     return true
   end
 
+    # Adds the @new_move to the @moves list. Then rebuilds the @board.
+  def add_new_move(move = @new_move) 
+    @moves << ',' << move
+    @board = make_board(@moves)
+  end
+
+  ###! Solving for winner logic below this point ###
+
+  def check_horizontal # —
+    color, column = @new_move[0], @new_move[1].to_i
+    row = (@board[column].length - 1)
+    left_most_column = column
+    
+    while (@board[left_most_column][row] == color)
+      break if @board[left_most_column -1][row] != color
+      left_most_column -= 1
+    end
+
+    first = @board[left_most_column][row]
+    second = @board[left_most_column+1][row]
+    third = @board[left_most_column+2][row]
+    fourth = @board[left_most_column+3][row]
+
+    if first == color && second == color && third == color && fourth == color
+      return true
+    end
+    return false
+  end
+
+  def check_vertical # |
+
+  end
+
+  def check_diagonal # \
+
+  end
+
+  def check_antidiagonal # /
+
+  end
+
 end
