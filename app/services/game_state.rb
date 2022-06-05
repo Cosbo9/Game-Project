@@ -62,7 +62,7 @@ class GameState
 
   ###! Solving for winner logic below this point ###
 
-  def check_horizontal # —
+  def horizontal_win? # —
     color, column = @new_move[0], @new_move[1].to_i
     row = (@board[column].length - 1)
     left_most_column = column
@@ -77,14 +77,21 @@ class GameState
     third = @board[left_most_column+2][row]
     fourth = @board[left_most_column+3][row]
 
-    if first == color && second == color && third == color && fourth == color
-      return true
-    end
+    return true if first == color && second == color && third == color && fourth == color
     return false
   end
 
-  def check_vertical # |
+  def vertical_win? # |
 
+    color, column = @new_move[0], @new_move[1].to_i
+    row = (@board[column].length - 1)
+    first = @board[column][row]
+    second = @board[column][row-1]
+    third = @board[column][row-2]
+    fourth = @board[column][row-3]
+
+    return true if first == color && second == color && third == color && fourth == color
+    return false
   end
 
   def check_diagonal # \
