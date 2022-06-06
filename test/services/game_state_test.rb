@@ -72,7 +72,7 @@ class GameStateTest < ActiveSupport::TestCase
   end
 
   test "horizontal check doesn't have false positive" do
-    hori_test = GameState.new('R1,B1,R3,B3,R4,B4', 'R5')
+    hori_test = GameState.new('R1,B1,R3,B3,R4,B4', 'R6')
     hori_test.add_new_move
     assert_not(hori_test.horizontal_win?)
   end
@@ -90,5 +90,30 @@ class GameStateTest < ActiveSupport::TestCase
     assert_not(verti_test.vertical_win?)
   end
 
+                    ## Diagonal tests ##
+  test "detects diagonal wins when piece placed at beginning" do
+    diag_test = GameState.new('R0,B0,R0,B1,R1,B2,R1,B4,R2,B5,R3', 'R0')
+    diag_test.add_new_move
+    assert(diag_test.diagonal_win?)
+
+  end
+
+  test "detects diagonal win when piece placed at end" do
+    diag_test = GameState.new('R0,B0,R1,B0,R0,B1,R1,B2,R2,B4', 'R3')
+    diag_test.add_new_move
+    assert(diag_test.diagonal_win?)
+  end
+
+  test "detects diagonal win when piece placed in middle" do
+    diag_test = GameState.new('R0,B0,R1,B0,R0,B1,R3,B2,R2', 'R1')
+    diag_test.add_new_move
+    assert(diag_test.diagonal_win?)
+  end
+
+  test "diagonal check doesn't have false positive" do
+    diag_test = GameState.new('R1,B1,R3,B3,R4,B4', 'R5')
+    diag_test.add_new_move
+    assert_not(diag_test.diagonal_win?)
+  end
 
 end

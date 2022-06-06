@@ -68,14 +68,16 @@ class GameState
     left_most_column = column
     
     while (@board[left_most_column][row] == color)
-      break if @board[left_most_column -1][row] != color
+      break if @board[left_most_column - 1][row] != color
       left_most_column -= 1
     end
 
+    return false if left_most_column >= 5 #guards against using [] against a column that doesn't exist.
+
     first = @board[left_most_column][row]
-    second = @board[left_most_column+1][row]
-    third = @board[left_most_column+2][row]
-    fourth = @board[left_most_column+3][row]
+    second = @board[left_most_column + 1][row]
+    third = @board[left_most_column + 2][row]
+    fourth = @board[left_most_column + 3][row]
 
     return true if first == color && second == color && third == color && fourth == color
     return false
@@ -86,19 +88,60 @@ class GameState
     color, column = @new_move[0], @new_move[1].to_i
     row = (@board[column].length - 1)
     first = @board[column][row]
-    second = @board[column][row-1]
-    third = @board[column][row-2]
-    fourth = @board[column][row-3]
+    second = @board[column][row - 1]
+    third = @board[column][row - 2]
+    fourth = @board[column][row - 3]
 
     return true if first == color && second == color && third == color && fourth == color
     return false
   end
 
-  def check_diagonal # \
 
-  end
+    def diagonal_win? # \
 
-  def check_antidiagonal # /
+      color, column = @new_move[0], @new_move[1].to_i
+      row = (@board[column].length - 1)
+      left_most_column = column
+      top_most_row = row
+      
+      while (@board[left_most_column][top_most_row] == color)
+        break if @board[left_most_column - 1][top_most_row + 1] != color
+        left_most_column -= 1
+        top_most_row += 1
+      end
+  
+      return false if left_most_column >= 5
+
+      first = @board[left_most_column][top_most_row]
+      second = @board[left_most_column + 1][top_most_row - 1]
+      third = @board[left_most_column + 2][top_most_row - 2] 
+      fourth = @board[left_most_column + 3][top_most_row - 3]
+  
+      return true if first == color && second == color && third == color && fourth == color
+      return false
+    end
+
+
+  def antidiagonal_win? # /
+
+    color, column = @new_move[0], @new_move[1].to_i
+    row = (@board[column].length - 1)
+    right_most_column = column
+    top_most_row = row
+    
+    while (@board[right_most_column][top_most_row] == color)
+      break if @board[right_most_column + 1][top_most_row + 1] != color
+      right_most_column += 1
+      top_most_row += 1
+    end
+
+    first = @board[right_most_column][top_most_row]
+    second = @board[right_most_column - 1][top_most_row - 1]
+    third = @board[right_most_column - 2][top_most_row - 2]
+    fourth = @board[right_most_column - 3][top_most_row - 3]
+
+    return true if first == color && second == color && third == color && fourth == color
+    return false
 
   end
 
