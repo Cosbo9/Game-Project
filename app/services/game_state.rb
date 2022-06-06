@@ -7,6 +7,18 @@ class GameState
     @board = make_board(moves)
   end
 
+  
+    # Checks if a move is valid, then adds it.
+  def handle_turn
+    break if !is_move_valid?
+    add_new_move
+  end
+  
+    # Checks for a winner
+  def is_a_winner?
+    return horizontal_win? || vertical_win? || diagonal_win? || antidiagonal_win?
+  end
+
     # Creates a 2D array out of a string of moves.
   def make_board(moves_string)
     board = Array.new(7){Array.new}
@@ -62,6 +74,7 @@ class GameState
 
   ###! Solving for winner logic below this point ###
 
+
   def horizontal_win? # —
     color, column = @new_move[0], @new_move[1].to_i
     row = (@board[column].length - 1)
@@ -104,13 +117,15 @@ class GameState
       left_most_column = column
       top_most_row = row
       
+      return false if column <= 2
+
       while (@board[left_most_column][top_most_row] == color)
         break if @board[left_most_column - 1][top_most_row + 1] != color
         left_most_column -= 1
         top_most_row += 1
       end
   
-      return false if left_most_column >= 5
+      return false if left_most_column >= 5 || top_most_row <= 2
 
       first = @board[left_most_column][top_most_row]
       second = @board[left_most_column + 1][top_most_row - 1]
@@ -129,11 +144,15 @@ class GameState
     right_most_column = column
     top_most_row = row
     
+    return false if column >= 5
+
     while (@board[right_most_column][top_most_row] == color)
       break if @board[right_most_column + 1][top_most_row + 1] != color
       right_most_column += 1
       top_most_row += 1
     end
+
+    return false if right_most_column <= 2 || top_most_row <= 2
 
     first = @board[right_most_column][top_most_row]
     second = @board[right_most_column - 1][top_most_row - 1]
@@ -144,5 +163,4 @@ class GameState
     return false
 
   end
-
 end
