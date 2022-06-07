@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_06_233715) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_07_010020) do
   create_table "games", force: :cascade do |t|
-    t.integer "guest_users_id"
+    t.integer "guest_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["guest_users_id"], name: "index_games_on_guest_users_id"
+    t.string "color"
+    t.integer "order"
+    t.index ["guest_user_id"], name: "index_games_on_guest_user_id"
   end
 
   create_table "guest_tokens", force: :cascade do |t|
@@ -32,6 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_06_233715) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "guest_user_id"
+    t.string "token"
     t.index ["guest_user_id"], name: "index_tokens_on_guest_user_id"
   end
 
