@@ -1,5 +1,5 @@
 class GameState
-  attr_reader :board
+  attr_reader :board, :moves
 
   def initialize(moves, new_move)
     @moves = moves
@@ -9,10 +9,10 @@ class GameState
 
   
     # Checks if a move is valid, then adds it.
-  # def handle_turn
-  #   break if !is_move_valid?
-  #   add_new_move
-  # end
+  def handle_turn
+    break if !is_move_valid?
+    add_new_move
+  end
   
     # Checks for a winner
   def is_a_winner?
