@@ -2,14 +2,32 @@ require_relative "../../../../services/game_state.rb"
 
 class Api::V1::GameController < ApplicationController
   def create
-    user = GuestUser.new
+    user = HostUser.new
     user.save
-    token = Token.create({ guest_user: user, token: generate_code(20) })
+    token = Token.create({ host_user: user, token: generate_code(20) })
     token.save!
     game = Game.create({ color: api_v1_game_params[:color], order: api_v1_game_params[:order], guest_user: user })
     game.save
-    puts params[:color]
     render json: { user: user, token: token, game: game }
+  end
+
+  def join
+    # see if game exists and is not already full
+    game = Game.find(api_v1_game_params[:game_id])
+    # if not leave
+    # otherwise check if joining user has token
+    if !api_v1_game_params[:token]
+      # if not assume joining user is a new guest
+      user = JoiningUser.new
+      user.save
+      token = Token.create({ guest_user: user, token: generate_code(20) })
+    end
+
+
+    # if joining user DOES have token, make sure token does not belong to game host
+
+    found_token = Token.find_by({token: api_v1_game_params[:token]})
+    found_token.joining_user == game.joining_user
   end
 
   def get
@@ -38,6 +56,6 @@ class Api::V1::GameController < ApplicationController
   end
 
   def api_v1_game_params
-    params.permit(:color, :order)
+    params.permit(:color, :order, :token, :game_id)
   end
 end
