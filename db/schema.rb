@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_09_234033) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_09_235720) do
   create_table "games", force: :cascade do |t|
     t.integer "guest_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "moves"
     t.string "color"
     t.integer "order"
-    t.string "moves"
     t.string "host_user"
     t.string "joining_user"
+    t.integer "current_player", default: 0
     t.index ["guest_user_id"], name: "index_games_on_guest_user_id"
   end
 

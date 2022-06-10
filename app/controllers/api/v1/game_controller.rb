@@ -36,16 +36,22 @@ class Api::V1::GameController < ApplicationController
   def play_move
     game = Games.find(params[:game_id])
     new_move = params[:new_move]
-
-    game_state = GameState.new(game.moves, new_move)
-    game_state.handle_move
-    game.moves = game_state.moves
-    game.save
-    render json: {
-      game: game,
+    response = {
+      game_id: game.id,
+      moves: game.moves,
       is_winner: game_state.is_a_winner?,
-      is_tie: game_state.is_board_full?,
+      is_tie: game_state.is_board_full?
     }
+    if correct_player_turn?(game, params[:token])
+      game_state = GameState.new(game.moves, new_move)
+      game_state.handle_move
+      game.moves = game_state.moves
+      game.switch_user
+      game.save
+    else
+      response[error] = "Incorrect User token"
+    end
+    render json: response
   end
 
   private
@@ -57,5 +63,20 @@ class Api::V1::GameController < ApplicationController
 
   def api_v1_game_params
     params.permit(:color, :order, :token, :game_id)
+  end
+
+  def correct_player_turn?(game, token)
+    if game.current_player == "host_user"
+      user = GuestUser.find(game.host_user)
+    elsif game.current_player == "joining_user"
+      user = GuestUser.find(game.joining_user)
+    end
+    if user.token == token
+      return true
+    else
+      raise "incorrect user token"
+      return false
+    end
+
   end
 end
