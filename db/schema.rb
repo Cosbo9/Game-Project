@@ -18,10 +18,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_235720) do
     t.string "moves"
     t.string "color"
     t.integer "order"
-    t.string "host_user"
-    t.string "joining_user"
-    t.integer "current_player", default: 0
+    t.integer "hosting_user_id"
+    t.integer "joining_user_id"
     t.index ["guest_user_id"], name: "index_games_on_guest_user_id"
+    t.index ["hosting_user_id"], name: "index_games_on_hosting_user_id"
+    t.index ["joining_user_id"], name: "index_games_on_joining_user_id"
   end
 
   create_table "guest_tokens", force: :cascade do |t|
@@ -34,16 +35,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_235720) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "host_users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "joining_users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "tokens", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -52,5 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_235720) do
     t.index ["guest_user_id"], name: "index_tokens_on_guest_user_id"
   end
 
+  add_foreign_key "games", "guest_users", column: "hosting_user_id"
+  add_foreign_key "games", "guest_users", column: "joining_user_id"
   add_foreign_key "tokens", "guest_users"
 end
