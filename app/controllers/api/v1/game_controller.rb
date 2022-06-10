@@ -75,9 +75,9 @@ class Api::V1::GameController < ApplicationController
 
   def correct_player_turn?(game, token)
     if game.current_player == "host_user"
-      user = GuestUser.find(game.host_user)
+      user = GuestUser.find(game.host_user_id)
     elsif game.current_player == "joining_user"
-      user = GuestUser.find(game.joining_user)
+      user = GuestUser.find(game.joining_user_id)
     end
     if user.token == token
       return true
