@@ -1,5 +1,5 @@
 class GameState
-  attr_reader :board
+  attr_reader :board, :moves
 
   def initialize(moves, new_move)
     @moves = moves
@@ -117,9 +117,9 @@ class GameState
       left_most_column = column
       top_most_row = row
       
-      return false if column <= 2
 
       while (@board[left_most_column][top_most_row] == color)
+        break if left_most_column <= 0
         break if @board[left_most_column - 1][top_most_row + 1] != color
         left_most_column -= 1
         top_most_row += 1
@@ -144,9 +144,9 @@ class GameState
     right_most_column = column
     top_most_row = row
     
-    return false if column >= 5
 
     while (@board[right_most_column][top_most_row] == color)
+      break if right_most_column >= 6
       break if @board[right_most_column + 1][top_most_row + 1] != color
       right_most_column += 1
       top_most_row += 1
