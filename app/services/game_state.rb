@@ -10,8 +10,9 @@ class GameState
   
     # Checks if a move is valid, then adds it.
   def handle_turn
-    break if !is_move_valid?
-    add_new_move
+    if is_move_valid?
+      add_new_move
+    end
   end
   
     # Checks for a winner
