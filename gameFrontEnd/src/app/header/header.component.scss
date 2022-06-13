@@ -1,0 +1,51 @@
+img {
+  width: 50px;
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+}
+
+mat-toolbar {
+  display: flex;
+  flex-direction: row;
+  background-color: #888888;
+  align-content: center;
+}
+
+.titleDisplay {
+  margin-bottom: 0;
+  margin-left: 1em;
+  color: black;
+}
+
+.userName{
+  margin-left: auto;
+  display: flex;
+  gap: 16px;
+  vertical-align: middle;
+}
+
+.mat-stroked-button{
+  border-color: white;
+}
+
+button {
+  color: white !important;
+}
+
+p {
+  margin-bottom: 0;
+  color: black;
+  font-size: xx-large;
+  font-weight: 800;
+}
+
+.signUp{
+  margin-left: 3em;
+  font-weight: 200;
+}
+
+// .signIn{
+//   margin-left: 3em;
+//   font-weight: 200;
+// }
+
