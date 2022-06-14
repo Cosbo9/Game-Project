@@ -1,7 +1,8 @@
 require "test_helper"
 
 class Api::V1::GameControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+
+  test "the truth" do
+    assert true
+  end
 end
