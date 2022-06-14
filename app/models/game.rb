@@ -5,10 +5,18 @@ class Game < ApplicationRecord
     validates :color, presence: true
     
 
-    enum current_player: [ :host_user, :joining_user]
+    enum status: [ :host_turn, :joining_turn, :host_win, :joining_win, :tie]
 
     def full?
       hosting_user != nil && joining_user != nil
     end
+
+    def switch_player
+      if status == "host_turn"
+        self.status = "joining_turn"
+      elsif status == "joining_turn"
+        self.status = "host_turn"
+      end
+
     private
 end
