@@ -1,0 +1,23 @@
+.lobby {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5%;
+}
+
+P {
+  color: white;
+}
+
+.game-list {
+  order: 1;
+}
+
+.new-game-button {
+  order: 2;
+}
+
+.lobby-chat {
+  order: 3;
+}
+
