@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_235720) do
     t.integer "order"
     t.integer "hosting_user_id"
     t.integer "joining_user_id"
+    t.integer "current_player", default: 0
     t.index ["guest_user_id"], name: "index_games_on_guest_user_id"
     t.index ["hosting_user_id"], name: "index_games_on_hosting_user_id"
     t.index ["joining_user_id"], name: "index_games_on_joining_user_id"

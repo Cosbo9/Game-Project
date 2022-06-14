@@ -1,5 +1,3 @@
-
-
 class Api::V1::GameController < ApplicationController
   def create
     user = GuestUser.new
@@ -12,33 +10,27 @@ class Api::V1::GameController < ApplicationController
   end
 
   def join
-    # see if game exists and is not already full
     game = Game.find(api_v1_game_params[:game_id])
     if game.full?
-      # leave
+      return render json: "game is full", :status => :bad_request
     end
-    # if not leave
-    # otherwise check if joining user has token
     if !api_v1_game_params[:token]
-      # if not assume joining user is a new guest
       user = GuestUser.new
       user.save
       token = Token.create({ guest_user: user, token: generate_code(20) })
+    else
+      found_token = Token.find_by({ token: api_v1_game_params[:token] })
+      if found_token == nil || found_token.guest_user == game.hosting_user
+        return render json: "Bad token", :status => 401
+      end
     end
-
-
-    # if joining user DOES have token, make sure token does not belong to game host
-
-    found_token = Token.find_by({token: api_v1_game_params[:token]})
-    # is the person joining the same as the person who made it?
-    if found_token != nil && found_token.guest_user == game.hosting_user
-      # leave
-    end
-    game.joining_user = user
+    game.joining_user = user || found_token.guest_user
     game.save
   end
 
   def get
+    game = Game.find(api_v1_game_params[:game_id])
+    render json: game
   end
 
   def play_move
@@ -48,7 +40,7 @@ class Api::V1::GameController < ApplicationController
       game_id: game.id,
       moves: game.moves,
       is_winner: game_state.is_a_winner?,
-      is_tie: game_state.is_board_full?
+      is_tie: game_state.is_board_full?,
     }
     if correct_player_turn?(game, params[:token])
       game_state = GameState.new(game.moves, new_move)
@@ -85,6 +77,5 @@ class Api::V1::GameController < ApplicationController
       raise "incorrect user token"
       return false
     end
-
   end
 end
