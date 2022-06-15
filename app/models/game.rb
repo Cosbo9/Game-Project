@@ -17,16 +17,17 @@ class Game < ApplicationRecord
       elsif status == "joining_turn"
         self.status = "host_turn"
       end
-      
+    end
+
       def make_player_winner
         if status == "host_turn"
           self.status = "host_win"
         elsif status == "joining_turn"
           self.status = "joining_win"
+        end
       end
 
       def make_game_tie
         self.status = "tie"
       end
-    private
 end
