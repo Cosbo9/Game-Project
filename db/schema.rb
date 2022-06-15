@@ -12,16 +12,18 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_06_13_230707) do
   create_table "games", force: :cascade do |t|
-    t.integer "guest_users_id"
+    t.integer "guest_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "moves"
     t.string "color"
     t.integer "order"
-    t.string "host_user"
-    t.string "joining_user"
+    t.integer "hosting_user_id"
+    t.integer "joining_user_id"
     t.integer "status", default: 0
-    t.index ["guest_users_id"], name: "index_games_on_guest_users_id"
+    t.index ["guest_user_id"], name: "index_games_on_guest_user_id"
+    t.index ["hosting_user_id"], name: "index_games_on_hosting_user_id"
+    t.index ["joining_user_id"], name: "index_games_on_joining_user_id"
   end
 
   create_table "guest_tokens", force: :cascade do |t|
@@ -34,16 +36,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_230707) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "host_users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "joining_users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "tokens", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -52,17 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_230707) do
     t.index ["guest_user_id"], name: "index_tokens_on_guest_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
+  add_foreign_key "games", "guest_users", column: "hosting_user_id"
+  add_foreign_key "games", "guest_users", column: "joining_user_id"
   add_foreign_key "tokens", "guest_users"
 end
