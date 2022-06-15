@@ -39,14 +39,18 @@ class Api::V1::GameController < ApplicationController
     response = {
       game_id: game.id,
       moves: game.moves,
-      is_winner: game_state.is_a_winner?,
-      is_tie: game_state.is_board_full?,
+      status: game.status,
     }
     if correct_player_turn?(game, params[:token])
       game_state = GameState.new(game.moves, new_move)
       game_state.handle_move
       game.moves = game_state.moves
-      game.switch_user unless !game_state.is_move_valid?
+      if game_state.is_a_winner?
+        game.make_player_winner
+      elsif game_state.is_board_full?
+        game.make_game_tie
+      end
+      game.switch_player if game_state.is_move_valid?
       game.save
     else
       response[error] = "Incorrect User token"
