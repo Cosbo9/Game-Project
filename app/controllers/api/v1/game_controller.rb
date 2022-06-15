@@ -46,7 +46,7 @@ class Api::V1::GameController < ApplicationController
       game_state = GameState.new(game.moves, new_move)
       game_state.handle_move
       game.moves = game_state.moves
-      game.switch_user
+      game.switch_user unless !game_state.is_move_valid?
       game.save
     else
       response[error] = "Incorrect User token"
