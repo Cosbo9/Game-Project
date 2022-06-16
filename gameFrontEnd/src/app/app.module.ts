@@ -10,6 +10,7 @@ import { SignUpComponent } from './header/sign-up/sign-up.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LobbyChatComponent } from './lobby-chat/lobby-chat.component';
 import { GameListComponent } from './game-list/game-list.component';
+import { GameBoardComponent } from './game-board/game-board.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { GameListComponent } from './game-list/game-list.component';
     ProfileComponent,
     LobbyChatComponent,
     GameListComponent,
+    GameBoardComponent,
   ],
   imports: [
     BrowserModule,

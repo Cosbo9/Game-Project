@@ -1,0 +1,17 @@
+table {
+  border: .2rem solid black;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 5px;
+  background-color: yellow;
+
+  div {
+    border: .2rem solid black;
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+
+  }
+}
