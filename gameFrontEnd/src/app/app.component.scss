@@ -9,15 +9,45 @@ P {
   color: white;
 }
 
-.game-list {
+.gameList {
   order: 1;
+  height: 750px;
+  width: 350px;
+  display: inline-block;
 }
 
-.new-game-button {
+.newGameButton {
   order: 2;
 }
 
-.lobby-chat {
+.lobbyChat {
   order: 3;
+  height: 750px;
+  width: 350px;
+  display: inline-block;
+}
+
+.lobbyChatTitle{
+  font-size: x-large;
+  text-align: center;
+}
+
+.gameListTitle{
+  font-size: x-large;
+  text-align: center;
+}
+
+.gameListText{
+  font-size: small;
+  color: #44cc2e;
+  background-color: black;
+
+}
+
+.chatText{
+  font-size: small;
+  color: #44cc2e;
+  background-color: black;
+
 }
 
