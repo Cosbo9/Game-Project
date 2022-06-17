@@ -1,31 +1,40 @@
 .lobby {
+  height: calc(100vh - 64px);
+}
+
+.listContainers {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 5%;
+  height: 70%;
+  padding: 5%;
+}
+
+.listBox {
+  width: 25%;
+  height: 100%;
+}
+
+.gameButton {
+  display: flex;
+  align-items: center;
 }
 
 P {
   color: white;
 }
 
-.gameList {
-  order: 1;
-  height: 750px;
-  width: 350px;
-  display: inline-block;
-}
+// .gameList {
+//   order: 1;
+// }
 
-.newGameButton {
-  order: 2;
-}
+// .newGameButton {
+//   order: 2;
+// }
 
-.lobbyChat {
-  order: 3;
-  height: 750px;
-  width: 350px;
-  display: inline-block;
-}
+// .lobbyChat {
+//   order: 3;
+// }
 
 .lobbyChatTitle{
   font-size: x-large;
