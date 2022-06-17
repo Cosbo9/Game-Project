@@ -10,11 +10,8 @@ import { SignUpComponent } from './header/sign-up/sign-up.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LobbyChatComponent } from './lobby-chat/lobby-chat.component';
 import { GameListComponent } from './game-list/game-list.component';
-<<<<<<< HEAD
 import { GameComponent } from './game/game.component';
-=======
 import { GameBoardComponent } from './game-board/game-board.component';
->>>>>>> 8b1db604d7b48cba403f7c4a130b5225dc585c4b
 
 
 @NgModule({
@@ -26,11 +23,8 @@ import { GameBoardComponent } from './game-board/game-board.component';
     ProfileComponent,
     LobbyChatComponent,
     GameListComponent,
-<<<<<<< HEAD
     GameComponent,
-=======
     GameBoardComponent,
->>>>>>> 8b1db604d7b48cba403f7c4a130b5225dc585c4b
   ],
   imports: [
     BrowserModule,
