@@ -12,6 +12,7 @@ import { LobbyChatComponent } from './lobby-chat/lobby-chat.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { GameComponent } from './game/game.component';
 import { GameBoardComponent } from './game-board/game-board.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { GameBoardComponent } from './game-board/game-board.component';
     GameListComponent,
     GameComponent,
     GameBoardComponent,
+    LobbyComponent,
   ],
   imports: [
     BrowserModule,
