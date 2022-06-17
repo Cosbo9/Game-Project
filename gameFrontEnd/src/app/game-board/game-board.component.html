@@ -1,5 +1,5 @@
 <table>
-  <tr *ngFor="let row of sampleBoard">
+  <tr *ngFor="let row of game.board">
     <td *ngFor="let token of row">
       <div [ngStyle]="{'background-color': token ? token : 'white'}"
       ></div>

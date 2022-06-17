@@ -1,3 +1,5 @@
+import { BehaviorSubject } from "rxjs";
+
 export class Game {
   board: string[][] = [
     [],
@@ -8,13 +10,35 @@ export class Game {
     []
   ];
 
-  movesString: string;
+
+  public _movesString: BehaviorSubject<string>;
+  public get movesString(){return this._movesString.value}
+  public set movesString(string: string){
+    console.log('maybe?')
+    this._movesString.next(string)}
+
 
   /**
    * @param movesString A string of concatenated colors and column number seperated by commas i.e. black1,#36d1bc6
    */
   constructor(movesString: string) {
-    this.movesString = movesString;
+    this._movesString = new BehaviorSubject(movesString);
+    this._movesString.subscribe((movesString) =>{
+      this.updateGameBoard(movesString)
+    })
+
+  }
+
+  private updateGameBoard(movesString: string){
+    console.log(movesString)
+    var newBoard: string[][] = [
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ];;
     var sidewaysBoard: string[][] = [
       [],
       [],
@@ -41,9 +65,11 @@ export class Game {
           }
         }
         column.forEach((token, row) => {
-          this.board[5 - row].push(token)
+          newBoard[5 - row].push(token)
         })
       }
     )
+    this.board = newBoard
   }
+
 }
