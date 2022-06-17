@@ -1,0 +1,8 @@
+<table>
+  <tr *ngFor="let row of sampleBoard">
+    <td *ngFor="let token of row">
+      <div [ngStyle]="{'background-color': token ? token : 'white'}"
+      ></div>
+    </td>
+  </tr>
+</table>
