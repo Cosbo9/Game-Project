@@ -1,15 +1,13 @@
 table {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  aspect-ratio: 7/6;
   border: 0.2rem solid black;
   border-collapse: collapse;
-  aspect-ratio: 7/6;
 }
 
 tr {
   display: flex;
-  height: 100%;
 }
 
 td {
@@ -23,7 +21,7 @@ td {
   div {
     border: 0.2rem solid black;
     border-radius: 50%;
-    height: 100%;
+    aspect-ratio: 1;
     box-sizing: border-box;
   }
 }
