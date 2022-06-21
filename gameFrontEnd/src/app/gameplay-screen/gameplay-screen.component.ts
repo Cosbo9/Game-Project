@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GameData, WebsocketService } from '../services/websocket.service';
 
 @Component({
@@ -8,16 +9,19 @@ import { GameData, WebsocketService } from '../services/websocket.service';
   styleUrls: ['./gameplay-screen.component.scss'],
 })
 export class GameplayScreenComponent implements OnInit {
+  railsSub;
   content = '';
   gameData: GameData;
   sent: GameData[] = [];
   createGameData: {
-    color: String;
-    order: Number;
+    game: {
+      color: String;
+      order: Number;
+    };
   };
 
   constructor(private socket: WebsocketService, private http: HttpClient) {
-    socket.gameData.subscribe((data) => {
+    this.railsSub = socket.gameData.subscribe((data) => {
       this.gameData = data;
       console.log('Response from websocket: ' + data);
     });
@@ -45,16 +49,24 @@ export class GameplayScreenComponent implements OnInit {
   }
   ngOnInit(): void {}
 
+  ngOnDestroy() {
+    this.railsSub.unsubscribe();
+  }
+
   chooseRed() {
     this.createGameData = {
-      color: 'red',
-      order: 1,
+      game: {
+        color: 'red',
+        order: 1,
+      },
     };
   }
   chooseBlack() {
     this.createGameData = {
-      color: 'black',
-      order: 1,
+      game: {
+        color: 'black',
+        order: 1,
+      },
     };
   }
 }

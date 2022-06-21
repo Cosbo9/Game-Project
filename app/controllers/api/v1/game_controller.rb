@@ -60,11 +60,11 @@ class Api::V1::GameController < ApplicationController
         game_id: game.id,
         moves: game.moves,
         status: game.status,
+        error: "Incorrect User token"
       }
-      response[error] = "Incorrect User token"
     end
-
-    render json: response
+    GameChannel.broadcast_to(game, response)
+    # render json: response
   end
 
   private
@@ -75,7 +75,8 @@ class Api::V1::GameController < ApplicationController
   end
 
   def api_v1_game_params
-    params.permit(:game, :color, :order, :token, :game_id)
+    params.require(:game).permit(:color, :order)
+    # params.permit(:game, :color, :order, :token, :game_id)
   end
 
 
