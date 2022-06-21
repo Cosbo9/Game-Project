@@ -1,8 +1,4 @@
-img {
-  width: 50px;
-  border-right: 1px solid #888888;
-  padding-right: 1em;
-}
+
 
 mat-toolbar {
   display: flex;
@@ -17,7 +13,7 @@ mat-toolbar {
   color: black;
 }
 
-.userName{
+.header{
   margin-left: auto;
   display: flex;
   gap: 16px;
@@ -44,8 +40,31 @@ p {
   font-weight: 200;
 }
 
+.avatar{
+text-align: center;
+width: 200px;
+}
+
+.userName{
+  font-size: small;
+  text-align: center;
+}
+
+.avatar img {
+  width: 35px;
+  display: block;
+  margin: auto;
+  // border-right: 1px solid #888888;
+  // padding-right: 1em;
+  padding-top: 12px;
+
+}
+
 // .signIn{
 //   margin-left: 3em;
 //   font-weight: 200;
 // }
 
+.signOut{
+  padding-top: 20px;
+}
