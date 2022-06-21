@@ -23,7 +23,7 @@ class GameState
     # Creates a 2D array out of a string of moves.
   def make_board(moves_string)
     board = Array.new(7){Array.new}
-    moves_array = moves_string.split(',')
+    moves_array = moves_string.split(',', -1)
     moves_array.each do |move|
       color, column = move[0], move[1].to_i
       board[column].push(color)
@@ -51,6 +51,9 @@ class GameState
 
     # Checks if the given color is different than the previous turn.
   def is_players_turn?(color = @new_move[0])
+    if @moves == ""
+      return true
+    end
     last_moves_color = @moves.split(',').last[0]
     if last_moves_color == color
       return false
@@ -69,7 +72,8 @@ class GameState
 
     # Adds the @new_move to the @moves list. Then rebuilds the @board.
   def add_new_move(move = @new_move) 
-    @moves << ',' << move
+    @moves = @moves.split(',').push(move).join(',')
+    # @moves << ',' << move
     @board = make_board(@moves)
   end
 
