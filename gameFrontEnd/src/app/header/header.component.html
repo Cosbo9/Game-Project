@@ -4,9 +4,10 @@
     <p>CONNECT - 4</p>
   </div>
 
-  <div class="userName">
-    <ng-container *ngIf=true>
+  <div class="header">
+    <ng-container *ngIf=false>
       <img src="assets/guest-avatar.png" alt="Guest">
+
 
       <div class="signUp">
         <button mat-stroked-button matTooltip="Sign Up" matTooltipPosition="below" >Sign Up</button>
@@ -17,8 +18,9 @@
       </div>
     </ng-container>
 
-    <ng-container *ngIf=false>
-      <img src="assets/user-avatar.png" alt="User Name">
+    <ng-container *ngIf=true>
+      <div class="avatar"><img src="assets/profile-avatar.png" alt="User Name">
+      <p class ="userName">{{username}}</p></div>
       <div class="signOut">
         <button mat-stroked-button matTooltip="Sign Out" matTooltipPosition="below" >Sign Out</button>
       </div>
