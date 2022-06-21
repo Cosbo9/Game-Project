@@ -4,7 +4,7 @@ class Api::V1::GameController < ApplicationController
     user.save
     token = Token.create({ guest_user: user, token: generate_code(20) })
     token.save!
-    game = Game.create({ color: api_v1_game_params[:color], order: api_v1_game_params[:order], hosting_user: user })
+    game = Game.create({ color: api_v1_game_params[:color], order: api_v1_game_params[:order], hosting_user: user, moves: "" })
     game.save!
     render json: { user: user, token: token, game: game }
   end
@@ -34,16 +34,12 @@ class Api::V1::GameController < ApplicationController
   end
 
   def play_move
-    game = Games.find(params[:game_id])
+    game = Game.find(params[:game_id])
     new_move = params[:new_move]
-    response = {
-      game_id: game.id,
-      moves: game.moves,
-      status: game.status,
-    }
+
     if correct_player_turn?(game, params[:token])
       game_state = GameState.new(game.moves, new_move)
-      game_state.handle_move
+      game_state.handle_turn
       game.moves = game_state.moves
       if game_state.is_a_winner?
         game.make_player_winner
@@ -52,9 +48,20 @@ class Api::V1::GameController < ApplicationController
       end
       game.switch_player if game_state.is_move_valid?
       game.save
+      response = {
+        game_id: game.id,
+        moves: game.moves,
+        status: game.status,
+      }
     else
+      response = {
+        game_id: game.id,
+        moves: game.moves,
+        status: game.status,
+      }
       response[error] = "Incorrect User token"
     end
+
     render json: response
   end
 
@@ -71,11 +78,11 @@ class Api::V1::GameController < ApplicationController
 
   def correct_player_turn?(game, token)
     if game.status == "host_turn"
-      user = GuestUser.find(game.host_user_id)
+      user = GuestUser.find(game.hosting_user_id)
     elsif game.status == "joining_turn"
       user = GuestUser.find(game.joining_user_id)
     end
-    if user.token == token
+    if user.tokens[0].token == token
       return true
     else
       raise "incorrect user token"
