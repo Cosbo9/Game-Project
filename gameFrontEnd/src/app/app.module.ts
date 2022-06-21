@@ -13,7 +13,9 @@ import { GameListComponent } from './game-list/game-list.component';
 import { GameComponent } from './game/game.component';
 import { GameBoardComponent } from './game-board/game-board.component';
 import { LobbyComponent } from './lobby/lobby.component';
-
+import { GameplayScreenComponent } from './gameplay-screen/gameplay-screen.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,13 +29,16 @@ import { LobbyComponent } from './lobby/lobby.component';
     GameComponent,
     GameBoardComponent,
     LobbyComponent,
+    GameplayScreenComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MaterialsModule
+    MaterialsModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
