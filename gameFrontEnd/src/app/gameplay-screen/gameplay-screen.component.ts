@@ -12,11 +12,10 @@ export class GameplayScreenComponent implements OnInit {
   railsSub;
   content = '';
   gameData: GameData;
-  sent: GameData[] = [];
   createGameData: {
     game: {
-      color: String;
-      order: Number;
+      color: string;
+      order: number;
     };
   };
 
@@ -68,5 +67,13 @@ export class GameplayScreenComponent implements OnInit {
         order: 1,
       },
     };
+  }
+
+  doesGameExist() {
+    if (this.gameData.moves === null || undefined) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

@@ -7,11 +7,11 @@ import { map } from 'rxjs/operators';
 const CHAT_URL = 'ws://localhost:3000/cable';
 
 export interface GameData {
-  command: String;
-  id?: Number;
-  hostUserId?: Number;
-  joiningUserId?: Number;
-  moves?: String;
+  command: string;
+  id?: number;
+  hostUserId?: number;
+  joiningUserId?: number;
+  moves?: string;
 }
 
 @Injectable({
