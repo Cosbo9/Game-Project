@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Game } from '../models/game';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-game-board',
@@ -8,6 +9,8 @@ import { Game } from '../models/game';
 })
 export class GameBoardComponent implements OnInit, OnChanges {
   @Input() moves: string | undefined;
+  hoveredColumn: number | null = null;
+  faArrowDown = faArrowDown
   game: Game;
   constructor() {
     console.log(typeof this.moves);
@@ -16,11 +19,21 @@ export class GameBoardComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit(): void {}
 
   ngOnChanges(): void {
     if (this.moves !== undefined) {
       this.game = new Game(this.moves);
     }
+  }
+  ngOnInit(): void {
+  }
+
+  playMove(column: number) {
+    if (this.game.board[0][column] == '') {
+      console.log('playing move')
+    }
+  }
+  onHover(column: number) {
+
   }
 }

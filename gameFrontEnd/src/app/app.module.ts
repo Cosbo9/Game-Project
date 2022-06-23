@@ -17,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationComponent } from './header/authentication/authentication.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent],
