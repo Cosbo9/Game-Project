@@ -5,8 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { SignInComponent } from './header/sign-in/sign-in.component';
-import { SignUpComponent } from './header/sign-up/sign-up.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LobbyChatComponent } from './lobby-chat/lobby-chat.component';
 import { GameListComponent } from './game-list/game-list.component';
@@ -16,13 +14,14 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { GameplayScreenComponent } from './gameplay-screen/gameplay-screen.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthenticationComponent } from './header/authentication/authentication.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SignInComponent,
-    SignUpComponent,
     ProfileComponent,
     LobbyChatComponent,
     GameListComponent,
@@ -30,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     GameBoardComponent,
     LobbyComponent,
     GameplayScreenComponent,
+    AuthenticationComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialsModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -38,6 +38,11 @@ p {
 .signUp{
   margin-left: 3em;
   font-weight: 200;
+  padding-top: 20px;
+}
+
+.signIn{
+  padding-top: 20px;
 }
 
 .avatar{
@@ -59,11 +64,28 @@ width: 200px;
   padding-top: 12px;
 
 }
+// ------------------------------------------------
+.guestAvatar{
+  text-align: center;
+  width: 200px;
+  }
 
-// .signIn{
-//   margin-left: 3em;
-//   font-weight: 200;
-// }
+  .guestName{
+    font-size: small;
+    text-align: center;
+  }
+
+  .guestAvatar img {
+    width: 35px;
+    display: block;
+    margin: auto;
+    // border-right: 1px solid #888888;
+    // padding-right: 1em;
+    padding-top: 12px;
+
+  }
+// --------------------------------------------------------------
+
 
 .signOut{
   padding-top: 20px;

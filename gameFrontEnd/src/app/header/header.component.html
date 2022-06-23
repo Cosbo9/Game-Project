@@ -5,20 +5,29 @@
   </div>
 
   <div class="header">
-    <ng-container *ngIf=false>
-      <img src="assets/guest-avatar.png" alt="Guest">
+    <ng-container *ngIf=true>
+      <div class="guestAvatar"><img src="assets/profile-avatar.png" alt="Guest User">
+        <p class ="guestName">{{guestname}}</p></div>
 
 
       <div class="signUp">
-        <button mat-stroked-button matTooltip="Sign Up" matTooltipPosition="below" >Sign Up</button>
+        <button
+          mat-stroked-button
+          matTooltip="Sign Up"
+          matTooltipPosition="below"
+          [routerLink]="" [queryParams]="{auth: 'sign_up'}">Sign Up</button>
       </div>
 
       <div class="signIn">
-        <button mat-stroked-button matTooltip="Sign In" matTooltipPosition="below" >Sign In</button>
+        <button
+          mat-stroked-button
+          matTooltip="Sign In"
+          matTooltipPosition="below"
+          [routerLink]="" [queryParams]="{auth: 'sign_in'}">Sign In</button>
       </div>
     </ng-container>
 
-    <ng-container *ngIf=true>
+    <ng-container *ngIf=false>
       <div class="avatar"><img src="assets/profile-avatar.png" alt="User Name">
       <p class ="userName">{{username}}</p></div>
       <div class="signOut">
