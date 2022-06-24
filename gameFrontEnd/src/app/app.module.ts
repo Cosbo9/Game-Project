@@ -16,7 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationComponent } from './header/authentication/authentication.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component'
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
     LobbyComponent,
     GameplayScreenComponent,
     AuthenticationComponent,
+    LeaderboardComponent,
   ],
   imports: [
     BrowserModule,
