@@ -90,7 +90,7 @@ class GameState
       left_most_column -= 1
     end
 
-    return false if left_most_column >= 5 #guards against using [] against a column that doesn't exist.
+    return false if left_most_column >= 4 #guards against using [] against a column that doesn't exist.
 
     first = @board[left_most_column][row]
     second = @board[left_most_column + 1][row]
@@ -130,7 +130,7 @@ class GameState
         top_most_row += 1
       end
   
-      return false if left_most_column >= 5 || top_most_row <= 2
+      return false if left_most_column >= 4 || top_most_row <= 2
 
       first = @board[left_most_column][top_most_row]
       second = @board[left_most_column + 1][top_most_row - 1]

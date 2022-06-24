@@ -1,7 +1,6 @@
 class Game < ApplicationRecord
     belongs_to :hosting_user, class_name: "GuestUser" 
     belongs_to :joining_user,  optional: true, class_name: "GuestUser"
-    validates :order, presence: true
     validates :color, presence: true
 
     enum status: [ :host_turn, :joining_turn, :host_win, :joining_win, :tie]

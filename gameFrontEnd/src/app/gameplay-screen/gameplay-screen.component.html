@@ -8,7 +8,7 @@
   </mat-card>
   <button (click)="createGame()">start game</button>
 
-  <mat-card
+  <mat-card class="game"
     ><app-game-board
       *ngIf="doesGameExist()"
       [moves]="gameData.moves"

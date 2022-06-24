@@ -151,4 +151,10 @@ class GameStateTest < ActiveSupport::TestCase
       win_test.add_new_move
       assert_not(win_test.is_a_winner?)
     end
+
+    test "test" do
+      test_new = GameState.new('R6,B6,R5,B5,R0,B0', 'R4')
+      test_new.add_new_move
+      assert_not(win_test.is_a_winner?)
+    end
 end

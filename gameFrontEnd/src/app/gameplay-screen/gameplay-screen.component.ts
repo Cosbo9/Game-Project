@@ -11,26 +11,30 @@ import { GameData, WebsocketService } from '../services/websocket.service';
 export class GameplayScreenComponent implements OnInit {
   railsSub;
   content = '';
-  gameData: GameData;
+  gameData: GameData = {
+    command: '',
+    moves: '',
+  };
   createGameData: {
     game: {
       color: string;
-      order: number;
     };
   };
 
   constructor(private socket: WebsocketService, private http: HttpClient) {
-    this.railsSub = socket.gameData.subscribe((data) => {
-      this.gameData = data;
-      console.log('Response from websocket: ' + data);
+    this.railsSub = socket.gameData.subscribe((data: any) => {
+      if (!data.type) {
+        this.gameData = data.message;
+      }
+      console.log(this.gameData);
     });
   }
 
-  subToGame() {
+  subToGame(id: number) {
     let sub = {
       command: 'subscribe',
       identifier: JSON.stringify({
-        id: this.gameData.id,
+        id: id,
         channel: 'GameChannel',
       }),
     };
@@ -41,12 +45,15 @@ export class GameplayScreenComponent implements OnInit {
     this.http
       .post('http://localhost:3000/api/v1/game/', this.createGameData)
       .subscribe((res: any) => {
-        console.log(res);
-        this.gameData = res.game;
-        this.subToGame();
+        this.subToGame(res.game_id);
+        this.http
+          .get(`http://localhost:3000/api/v1/game/${res.game_id}`)
+          .subscribe();
       });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.gameData);
+  }
 
   ngOnDestroy() {
     this.railsSub.unsubscribe();
@@ -56,7 +63,6 @@ export class GameplayScreenComponent implements OnInit {
     this.createGameData = {
       game: {
         color: 'red',
-        order: 1,
       },
     };
   }
@@ -64,13 +70,12 @@ export class GameplayScreenComponent implements OnInit {
     this.createGameData = {
       game: {
         color: 'black',
-        order: 1,
       },
     };
   }
 
   doesGameExist() {
-    if (this.gameData.moves === null || undefined) {
+    if (this.gameData != undefined) {
       return false;
     } else {
       return true;

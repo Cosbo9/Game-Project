@@ -4,9 +4,9 @@ class Api::V1::GameController < ApplicationController
     user.save
     token = Token.create({ guest_user: user, token: generate_code(20) })
     token.save!
-    game = Game.create({ color: api_v1_game_params[:color], order: api_v1_game_params[:order], hosting_user: user, moves: "" })
+    game = Game.create({ color: api_v1_game_params[:color], hosting_user: user, moves: "" })
     game.save!
-    render json: { user: user, token: token, game: game }
+    render json: { game_id: game.id }
     # GameChannel.broadcast_to(game, {game: game, user: user, token: token})
   end
 
@@ -31,7 +31,7 @@ class Api::V1::GameController < ApplicationController
   end
 
   def get
-    game = Game.find(api_v1_game_params[:game_id])
+    game = Game.find(params[:game_id])
     GameChannel.broadcast_to(game, game)
     # render json: game
   end
@@ -75,7 +75,7 @@ class Api::V1::GameController < ApplicationController
   end
 
   def api_v1_game_params
-    params.require(:game).permit(:color, :order)
+    params.require(:game).permit(:color, :game_id)
     # params.permit(:game, :color, :order, :token, :game_id)
   end
 
