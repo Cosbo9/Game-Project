@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-authentication',
@@ -24,7 +25,8 @@ export class AuthenticationComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dialogRef: MatDialogRef<AuthenticationComponent>,
-    @Inject(MAT_DIALOG_DATA) dialogData: any
+    @Inject(MAT_DIALOG_DATA) dialogData: any,
+    private auth: AuthService
   ) {
     this.authType = dialogData.auth;
     if (dialogData.auth == 'sign_up') {this.signUp = true}
@@ -48,4 +50,17 @@ export class AuthenticationComponent implements OnInit {
     this.signIn = false;
   }
 
+  onSignUp(data: any) {
+    this.auth.signUp(data).subscribe(res => {
+      const token = res.headers.get('Authorization')!
+      localStorage.setItem('token', token)
+    })
+  }
+
+  onSignIn(data: any) {
+    this.auth.signIn(data).subscribe(res => {
+      const token = res.headers.get('Authorization')!
+      localStorage.setItem('token', token)
+    })
+  }
 }
