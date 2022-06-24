@@ -18,6 +18,8 @@ import { AuthenticationComponent } from './header/authentication/authentication.
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component'
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

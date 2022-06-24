@@ -11,7 +11,10 @@ export class Game {
   ];
 
 
-  public _movesString: BehaviorSubject<string>;
+  private _movesString: BehaviorSubject<string>;
+
+  moveStringObservable(){return this._movesString.asObservable}
+
   public get movesString(){return this._movesString.value}
   public set movesString(string: string){
     console.log('maybe?')

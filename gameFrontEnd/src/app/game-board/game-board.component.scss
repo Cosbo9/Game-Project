@@ -10,7 +10,7 @@ tr {
   display: flex;
 }
 
-td {
+.row {
   // padding: 5px;
   background-color: yellow;
   width: 100%;
@@ -24,4 +24,22 @@ td {
     aspect-ratio: 1;
     box-sizing: border-box;
   }
+}
+
+.header {
+  background-color: transparent;
+  aspect-ratio: 1;
+}
+
+th{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+fa-icon {
+  font-size: 10vw;
+  text-align: center;
+  text-justify: center;
+  line-height: 1;
 }
