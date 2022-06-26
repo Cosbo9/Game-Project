@@ -10,16 +10,11 @@ import { GameData, WebsocketService } from '../services/websocket.service';
 })
 export class GameplayScreenComponent implements OnInit {
   railsSub;
-  content = '';
   gameData: GameData = {
     command: '',
     moves: '',
   };
-  createGameData: {
-    game: {
-      color: string;
-    };
-  };
+  createGameData: { game: {} };
 
   constructor(private socket: WebsocketService, private http: HttpClient) {
     this.railsSub = socket.gameData.subscribe((data: any) => {
@@ -57,21 +52,6 @@ export class GameplayScreenComponent implements OnInit {
 
   ngOnDestroy() {
     this.railsSub.unsubscribe();
-  }
-
-  chooseRed() {
-    this.createGameData = {
-      game: {
-        color: 'red',
-      },
-    };
-  }
-  chooseBlack() {
-    this.createGameData = {
-      game: {
-        color: 'black',
-      },
-    };
   }
 
   doesGameExist() {

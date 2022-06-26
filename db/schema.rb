@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_23_165557) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_26_231040) do
   create_table "games", force: :cascade do |t|
     t.integer "guest_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "moves"
-    t.string "color"
     t.integer "hosting_user_id"
     t.integer "joining_user_id"
     t.integer "status", default: 0

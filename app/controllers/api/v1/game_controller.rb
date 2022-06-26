@@ -4,7 +4,7 @@ class Api::V1::GameController < ApplicationController
     user.save
     token = Token.create({ guest_user: user, token: generate_code(20) })
     token.save!
-    game = Game.create({ color: api_v1_game_params[:color], hosting_user: user, moves: "" })
+    game = Game.create({ hosting_user: user, moves: "" })
     game.save!
     render json: { game_id: game.id }
     # GameChannel.broadcast_to(game, {game: game, user: user, token: token})
