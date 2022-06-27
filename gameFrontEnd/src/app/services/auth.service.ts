@@ -5,29 +5,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
 
-  creatGame() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token')!,
-      }),
-    };
+  constructor(private http: HttpClient) { }
 
-    this.http.post('game', { game: 'data' }, httpOptions);
-  }
 
   signUp(info: any) {
-    return this.http.post('http://localhost:3000/signup', info, {
-      observe: 'response',
-    });
+    return this.http.post("http://localhost:3000/signup", info, { observe: 'response' })
   }
 
   signIn(info: any) {
-    return this.http.post('http://localhost:3000/signin', info, {
-      observe: 'response',
-    });
+    return this.http.post("http://localhost:3000/signin", info, { observe: "response" })
   }
 
   signOut() {}

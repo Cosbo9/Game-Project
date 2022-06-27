@@ -13,7 +13,7 @@ import { GameBoardComponent } from './game-board/game-board.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { GameplayScreenComponent } from './gameplay-screen/gameplay-screen.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { AuthenticationComponent } from './header/authentication/authentication.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';

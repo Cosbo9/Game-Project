@@ -6,8 +6,8 @@
 
   <mat-card class="game"
     ><app-game-board
-      *ngIf="doesGameExist()"
-      [moves]="gameData.moves"
+      [moves]="gameData.moves!"
+      (movePlayed)="playMove($event)"
     ></app-game-board
   ></mat-card>
 </div>

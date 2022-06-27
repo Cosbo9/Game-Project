@@ -17,7 +17,7 @@ export class Game {
 
   public get movesString(){return this._movesString.value}
   public set movesString(string: string){
-    console.log('maybe?')
+    console.log("movestring updated: " +string)
     this._movesString.next(string)}
 
 
@@ -27,6 +27,7 @@ export class Game {
   constructor(movesString: string) {
     this._movesString = new BehaviorSubject(movesString);
     this._movesString.subscribe((movesString) =>{
+      console.log("movestring observable updated")
       this.updateGameBoard(movesString)
     })
 
@@ -68,6 +69,12 @@ export class Game {
           }
         }
         column.forEach((token, row) => {
+          if (token == "h"){
+            token = "red"
+          }
+          else if (token == "j"){
+            token = "black"
+          }
           newBoard[5 - row].push(token)
         })
       }

@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Game } from '../models/game';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-game-board',
@@ -8,31 +9,32 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./game-board.component.scss'],
 })
 export class GameBoardComponent implements OnInit, OnChanges {
-  @Input() moves: string | undefined;
+
+  @Input() set moves(value:string){this.movesSubject.next(value)};
+  movesSubject: BehaviorSubject<string> = new BehaviorSubject("");
+
+  @Output() movePlayed: EventEmitter<number> = new EventEmitter();
+
   hoveredColumn: number | null = null;
   faArrowDown = faArrowDown
   game: Game;
+
   constructor() {
-    console.log(typeof this.moves);
-    if (this.moves !== undefined) {
-      this.game = new Game(this.moves);
-    }
+    this.game = new Game(this.movesSubject.value);
   }
 
 
   ngOnChanges(): void {
-    if (this.moves !== undefined) {
-      this.game = new Game(this.moves);
-    }
   }
+
   ngOnInit(): void {
+    this.movesSubject.subscribe(moves =>{this.game.movesString = moves; console.log(this.game.board) })
   }
 
   playMove(column: number) {
-    if (this.game.board[0][column] == '') {
-      console.log('playing move')
-    }
+    this.movePlayed.emit(column)
   }
+
   onHover(column: number) {
 
   }

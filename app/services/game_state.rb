@@ -1,9 +1,17 @@
 class GameState
   attr_reader :board, :moves
 
-  def initialize(moves, new_move)
+  def initialize(game, moves, new_move)
+    @game = game
+
+    if @game.status == "host_turn"
+      prefix = "h"
+    elsif game.status == "joining_turn"
+      prefix = "j"
+    end
+
     @moves = moves
-    @new_move = new_move
+    @new_move = prefix + new_move.to_s
     @board = make_board(moves)
   end
 
@@ -11,7 +19,7 @@ class GameState
     # Checks if a move is valid, then adds it.
   def handle_turn
     if is_move_valid?
-      add_new_move
+      add_new_move(@new_move)
     end
   end
   
@@ -42,10 +50,10 @@ class GameState
       raise 'Given row has too many chips'
       return false
     end
-    if !is_players_turn?(move[0])
-      raise 'Given player color is the wrong color'
-      return false
-    end
+    # if !is_players_turn?(move[0])
+    #   raise 'Given player color is the wrong color'
+    #   return false
+    # end
     return true
   end
 

@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { GameData, WebsocketService } from '../services/websocket.service';
 
 @Component({
@@ -14,18 +16,25 @@ export class GameplayScreenComponent implements OnInit {
     command: '',
     moves: '',
   };
-  createGameData: { game: {} };
+  createGameData: {
+    game: {
+      color: string;
+    };
+  };
+  gameId: number;
+  token: any;
 
   constructor(private socket: WebsocketService, private http: HttpClient) {
     this.railsSub = socket.gameData.subscribe((data: any) => {
-      if (!data.type) {
+      if (data.message?.moves != undefined) {
         this.gameData = data.message;
       }
-      console.log(this.gameData);
+      console.log(data);
     });
   }
 
   subToGame(id: number) {
+    this.gameId = id;
     let sub = {
       command: 'subscribe',
       identifier: JSON.stringify({
@@ -38,13 +47,20 @@ export class GameplayScreenComponent implements OnInit {
   }
   createGame() {
     this.http
-      .post('http://localhost:3000/api/v1/game/', this.createGameData)
+      .post(environment.apiKey, this.createGameData)
       .subscribe((res: any) => {
+        this.token = res.token.token
         this.subToGame(res.game_id);
-        this.http
-          .get(`http://localhost:3000/api/v1/game/${res.game_id}`)
-          .subscribe();
       });
+  }
+
+  playMove(column:number){
+    var gameData ={game:{
+      token: this.token ,
+      game_id: this.gameId,
+      new_move: column
+    }}
+    this.http.post(environment.apiKey+"play", gameData).subscribe()
   }
   ngOnInit(): void {
     console.log(this.gameData);
