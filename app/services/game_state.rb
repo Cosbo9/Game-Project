@@ -113,6 +113,9 @@ class GameState
 
     color, column = @new_move[0], @new_move[1].to_i
     row = (@board[column].length - 1)
+
+    return false if row <= 2
+
     first = @board[column][row]
     second = @board[column][row - 1]
     third = @board[column][row - 2]

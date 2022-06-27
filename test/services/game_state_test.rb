@@ -85,7 +85,7 @@ class GameStateTest < ActiveSupport::TestCase
   end
 
   test "vertical check doesn't have false positive" do
-    verti_test = GameState.new('R0,B1,R0,B1,R0,B1', 'R5')
+    verti_test = GameState.new('R0,B1,R5,B1,R0,B1', 'R5')
     verti_test.add_new_move
     assert_not(verti_test.vertical_win?)
   end
