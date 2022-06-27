@@ -1,3 +1,20 @@
 <!--
   ToDo
  -->
+<mat-card>
+    <mat-card-title>SIGN IN</mat-card-title>
+    <mat-card-content>
+        <form #f="ngForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput email="ngModel" ngModel name="email" required placeholder="Ex. pat@example.com">
+                <!-- <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+                    Please enter a valid email address
+                </mat-error> -->
+                <!-- <mat-error *ngIf="email.errors?.['required']">
+                    Email is <strong>required</strong>
+                </mat-error> -->
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+</mat-card>

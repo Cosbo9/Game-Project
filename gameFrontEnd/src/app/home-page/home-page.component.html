@@ -1,0 +1,34 @@
+<main>
+    <!-- Not in game -->
+    <!-- <ng-container *ngif="true"> -->
+    <div class="lobby">
+        <div class="gameList">
+            <!-- Game List -->
+            <div class="gameListText">
+                <p class="gameListTitle">Join Game</p>
+                PLAYER: RANK
+                <br> Guest3245: 1257
+                <br> Guest4539: 0006
+                <br> RedNotYellow: 0894
+            </div>
+        </div>
+
+        <div class="newGameButton">
+            <img src="assets/new-game.png" width="150" height="150" alt="New Game Button">
+        </div>
+
+        <div class="lobbyChat">
+            <div class="chatText">
+                <p class="lobbyChatTitle">Lobby Chat</p>
+                Guest3245: Who wants to play?
+                <br> Sir-Connectsalot: I have to go eat rn, maybe l8r.
+            </div>
+        </div>
+    </div>
+    <!-- </ng-container> -->
+
+    <!-- In Game -->
+    <ng-container *ngif=false>
+        <!-- To Do -->
+    </ng-container>
+</main>

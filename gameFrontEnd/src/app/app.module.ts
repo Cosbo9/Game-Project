@@ -10,6 +10,7 @@ import { SignUpComponent } from './header/sign-up/sign-up.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LobbyChatComponent } from './lobby-chat/lobby-chat.component';
 import { GameListComponent } from './game-list/game-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,7 +26,9 @@ import { GameListComponent } from './game-list/game-list.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MaterialsModule
+    MaterialsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
