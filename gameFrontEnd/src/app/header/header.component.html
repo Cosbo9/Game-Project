@@ -4,21 +4,26 @@
         <p>CONNECT - 4</p>
     </div>
 
-    <div class="userName">
+    <div class="header">
         <ng-container *ngIf=true>
-            <img src="assets/guest-avatar.png" alt="Guest">
+            <div class="guestAvatar"><img src="assets/profile-avatar.png" alt="Guest User">
+                <p class="guestName">{{guestname}}</p>
+            </div>
+
 
             <div class="signUp">
-                <button mat-stroked-button matTooltip="Sign Up" matTooltipPosition="below" routerLink="sign-up">Sign Up</button>
+                <button mat-stroked-button matTooltip="Sign Up" matTooltipPosition="below" [routerLink]="" [queryParams]="{auth: 'sign_up'}">Sign Up</button>
             </div>
 
             <div class="signIn">
-                <button mat-stroked-button matTooltip="Sign In" matTooltipPosition="below" routerLink="sign-in">Sign In</button>
+                <button mat-stroked-button matTooltip="Sign In" matTooltipPosition="below" [routerLink]="" [queryParams]="{auth: 'sign_in'}">Sign In</button>
             </div>
         </ng-container>
 
         <ng-container *ngIf=false>
-            <img src="assets/user-avatar.png" alt="User Name">
+            <div class="avatar"><img src="assets/profile-avatar.png" alt="User Name">
+                <p class="userName">{{username}}</p>
+            </div>
             <div class="signOut">
                 <button mat-stroked-button matTooltip="Sign Out" matTooltipPosition="below">Sign Out</button>
             </div>
