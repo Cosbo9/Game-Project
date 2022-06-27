@@ -1,3 +1,4 @@
+
 <table>
   <tr>
     <th class="row header" *ngFor="let column of [].constructor(7); let i = index" [ngStyle]="{'cursor': game.board[0][i] =='' ? 'pointer': 'default'}" (mouseover)="hoveredColumn = i" (click)="playMove(i)">
@@ -7,7 +8,7 @@
   <tr *ngFor="let row of game.board">
     <ng-container *ngFor="let token of row; let i = index ">
     <td class="row" (click)="playMove(i)" (mouseover)="hoveredColumn = i" [ngStyle]="{'cursor': game.board[0][i] =='' ? 'pointer': 'default'}">
-      <div [ngStyle]="{ 'background-color': token ? token : 'white' }"></div>
+      <div [ngStyle]="{ 'background-color': token ? token : '#565656' }"></div>
     </td></ng-container>
   </tr>
 </table>
