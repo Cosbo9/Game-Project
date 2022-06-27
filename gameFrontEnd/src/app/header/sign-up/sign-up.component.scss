@@ -1,1 +1,26 @@
-// ToDo
+.cardContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 6rem;
+    mat-card {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    mat-card-title {
+        align-self: center;
+    }
+    mat-form-field {
+        width: 75%;
+        align-self: center;
+        margin: .5rem;
+    }
+    button {
+        align-self: center;
+        width: 50%;
+    }
+}
