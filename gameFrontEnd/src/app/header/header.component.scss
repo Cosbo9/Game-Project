@@ -10,6 +10,11 @@ mat-toolbar {
     color: black;
 }
 
+.titleClick:hover {
+  cursor: pointer
+
+}
+
 .header {
     margin-left: auto;
     display: flex;
@@ -30,6 +35,7 @@ p {
     color: black;
     font-size: xx-large;
     font-weight: 800;
+
 }
 
 .signUp {
