@@ -4,9 +4,11 @@ class Api::V1::GameController < ApplicationController
     user.save
     token = Token.create({ guest_user: user, token: generate_code(20) })
     token.save!
-    game = Game.create({ color: api_v1_game_params[:color], order: api_v1_game_params[:order], hosting_user: user })
+    game = Game.create({ hosting_user: user, moves: "" })
     game.save!
-    render json: { user: user, token: token, game: game }
+
+    render json: { game_id: game.id, token: token }
+    # GameChannel.broadcast_to(game, {game: game, user: user, token: token})
   end
 
   def join
@@ -26,24 +28,21 @@ class Api::V1::GameController < ApplicationController
     end
     game.joining_user = user || found_token.guest_user
     game.save
+    GameChannel.broadcast_to(game, {game: game, user: game.joining_user, token: game.joining_user.tokens[0].token})
   end
 
   def get
-    game = Game.find(api_v1_game_params[:game_id])
-    render json: game
+    game = Game.find(params[:game_id])
+    GameChannel.broadcast_to(game, game)
+    # render json: game
   end
 
   def play_move
-    game = Games.find(params[:game_id])
-    new_move = params[:new_move]
-    response = {
-      game_id: game.id,
-      moves: game.moves,
-      status: game.status,
-    }
-    if correct_player_turn?(game, params[:token])
-      game_state = GameState.new(game.moves, new_move)
-      game_state.handle_move
+    game = Game.find(api_v1_game_params[:game_id])
+    new_move = api_v1_game_params[:new_move]
+    if correct_player_turn?(game, api_v1_game_params[:token])
+      game_state = GameState.new(game, game.moves, new_move)
+      game_state.handle_turn
       game.moves = game_state.moves
       if game_state.is_a_winner?
         game.make_player_winner
@@ -52,10 +51,22 @@ class Api::V1::GameController < ApplicationController
       end
       game.switch_player if game_state.is_move_valid?
       game.save
+      
+      response = {
+        game_id: game.id,
+        moves: game.moves,
+        status: game.status,
+      }
     else
-      response[error] = "Incorrect User token"
+      response = {
+        game_id: game.id,
+        moves: game.moves,
+        status: game.status,
+        error: "Incorrect User token"
+      }
     end
-    render json: response
+    GameChannel.broadcast_to(game, response)
+    # render json: response
   end
 
   private
@@ -66,16 +77,18 @@ class Api::V1::GameController < ApplicationController
   end
 
   def api_v1_game_params
-    params.permit(:game, :color, :order, :token, :game_id)
+    params.require(:game).permit(:color, :game_id, :token, :new_move)
+    # params.permit(:game, :color, :order, :token, :game_id)
   end
+
 
   def correct_player_turn?(game, token)
     if game.status == "host_turn"
-      user = GuestUser.find(game.host_user_id)
+      user = GuestUser.find(game.hosting_user_id)
     elsif game.status == "joining_turn"
       user = GuestUser.find(game.joining_user_id)
     end
-    if user.token == token
+    if user.tokens[0].token == token
       return true
     else
       raise "incorrect user token"

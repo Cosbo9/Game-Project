@@ -1,9 +1,17 @@
 class GameState
   attr_reader :board, :moves
 
-  def initialize(moves, new_move)
+  def initialize(game, moves, new_move)
+    @game = game
+
+    if @game.status == "host_turn"
+      prefix = "h"
+    elsif game.status == "joining_turn"
+      prefix = "j"
+    end
+
     @moves = moves
-    @new_move = new_move
+    @new_move = prefix + new_move.to_s
     @board = make_board(moves)
   end
 
@@ -11,7 +19,7 @@ class GameState
     # Checks if a move is valid, then adds it.
   def handle_turn
     if is_move_valid?
-      add_new_move
+      add_new_move(@new_move)
     end
   end
   
@@ -23,7 +31,7 @@ class GameState
     # Creates a 2D array out of a string of moves.
   def make_board(moves_string)
     board = Array.new(7){Array.new}
-    moves_array = moves_string.split(',')
+    moves_array = moves_string.split(',', -1)
     moves_array.each do |move|
       color, column = move[0], move[1].to_i
       board[column].push(color)
@@ -42,15 +50,18 @@ class GameState
       raise 'Given row has too many chips'
       return false
     end
-    if !is_players_turn?(move[0])
-      raise 'Given player color is the wrong color'
-      return false
-    end
+    # if !is_players_turn?(move[0])
+    #   raise 'Given player color is the wrong color'
+    #   return false
+    # end
     return true
   end
 
     # Checks if the given color is different than the previous turn.
   def is_players_turn?(color = @new_move[0])
+    if @moves == ""
+      return true
+    end
     last_moves_color = @moves.split(',').last[0]
     if last_moves_color == color
       return false
@@ -69,7 +80,8 @@ class GameState
 
     # Adds the @new_move to the @moves list. Then rebuilds the @board.
   def add_new_move(move = @new_move) 
-    @moves << ',' << move
+    @moves = @moves.split(',').push(move).join(',')
+    # @moves << ',' << move
     @board = make_board(@moves)
   end
 
@@ -86,7 +98,7 @@ class GameState
       left_most_column -= 1
     end
 
-    return false if left_most_column >= 5 #guards against using [] against a column that doesn't exist.
+    return false if left_most_column >= 4 #guards against using [] against a column that doesn't exist.
 
     first = @board[left_most_column][row]
     second = @board[left_most_column + 1][row]
@@ -101,6 +113,9 @@ class GameState
 
     color, column = @new_move[0], @new_move[1].to_i
     row = (@board[column].length - 1)
+
+    return false if row <= 2
+
     first = @board[column][row]
     second = @board[column][row - 1]
     third = @board[column][row - 2]
@@ -126,7 +141,7 @@ class GameState
         top_most_row += 1
       end
   
-      return false if left_most_column >= 5 || top_most_row <= 2
+      return false if left_most_column >= 4 || top_most_row <= 2
 
       first = @board[left_most_column][top_most_row]
       second = @board[left_most_column + 1][top_most_row - 1]

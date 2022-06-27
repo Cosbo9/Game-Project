@@ -1,0 +1,13 @@
+<div>
+  <mat-card>
+    <header>Player 1 vs Player 2</header>
+  </mat-card>
+  <button (click)="createGame()">start game</button>
+
+  <mat-card class="game"
+    ><app-game-board
+      [moves]="gameData.moves!"
+      (movePlayed)="playMove($event)"
+    ></app-game-board
+  ></mat-card>
+</div>
