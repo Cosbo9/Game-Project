@@ -5,7 +5,7 @@
     </div>
 
     <div class="header">
-        <ng-container *ngIf=true>
+        <ng-container *ngIf="!isLoggedIn()">
             <div class="guestAvatar"><img src="assets/profile-avatar.png" alt="Guest User">
                 <p class="guestName">{{guestname}}</p>
             </div>
@@ -20,12 +20,12 @@
             </div>
         </ng-container>
 
-        <ng-container *ngIf=false>
+        <ng-container *ngIf="isLoggedIn()">
             <div class="avatar"><img src="assets/profile-avatar.png" alt="User Name">
                 <p class="userName">{{username}}</p>
             </div>
             <div class="signOut">
-                <button mat-stroked-button matTooltip="Sign Out" matTooltipPosition="below">Sign Out</button>
+                <button mat-stroked-button matTooltip="Sign Out" matTooltipPosition="below" (click)="onLogout()">Sign Out</button>
             </div>
         </ng-container>
     </div>

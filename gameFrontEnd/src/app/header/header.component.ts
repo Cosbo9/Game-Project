@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 import { AuthenticationComponent } from './authentication/authentication.component';
 
 @Component({
@@ -17,7 +18,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private auth: AuthService
   ) {
     this.routeParamsSub = this.route.queryParams.subscribe(params => {
       if (params['auth']) {
@@ -29,6 +31,14 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isLoggedIn() {
+    return this.auth.isLoggedIn()
+  }
+
+  onLogout() {
+    this.auth.signOut()
+  }
+
   openAuthDialog(params: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -37,24 +47,6 @@ export class HeaderComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AuthenticationComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(data => {
-      if (data.auth == 'sign_in') {
-        const authData = {
-          session: {
-            email: data.email,
-            password: data.password
-          }
-        };
-      }
-      else if (data.auth == 'sign_up') {
-        const authData = {
-          user: {
-            email: data.email,
-            password: data.password
-          }
-        };
-      }
-    })
   }
 
 }

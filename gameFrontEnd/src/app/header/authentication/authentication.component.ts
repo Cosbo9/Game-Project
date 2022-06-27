@@ -51,16 +51,19 @@ export class AuthenticationComponent implements OnInit {
   }
 
   onSignUp(data: any) {
-    this.auth.signUp(data).subscribe(res => {
+    this.auth.signUp({user: data.value}).subscribe(res => {
       const token = res.headers.get('Authorization')!
       localStorage.setItem('token', token)
+      this.closeDialog()
     })
   }
 
   onSignIn(data: any) {
-    this.auth.signIn(data).subscribe(res => {
+    this.auth.signIn({user: data.value}).subscribe(res => {
       const token = res.headers.get('Authorization')!
       localStorage.setItem('token', token)
+      this.closeDialog()
+      console.log(res)
     })
   }
 }
