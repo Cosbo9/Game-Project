@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-game-list',
@@ -13,7 +14,7 @@ export class GameListComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private route: ActivatedRoute,
+    private api: ApiService,
     private router: Router
   ) {}
 
@@ -29,12 +30,9 @@ export class GameListComponent implements OnInit {
   }
 
   joinGame(id: number) {
-    this.http
-      .post(environment.apiKey + 'join', { game: { game_id: id } })
-      .subscribe((res: any) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('gameId', id.toString());
-        this.router.navigate(['game']);
-      });
+    this.api.joinGame(id).subscribe((res: any) => {
+      localStorage.setItem('token', res.token);
+      this.router.navigate(['game', id]);
+    });
   }
 }

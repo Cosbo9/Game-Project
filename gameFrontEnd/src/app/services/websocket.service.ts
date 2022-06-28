@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 const CHAT_URL = 'ws://localhost:3000/cable';
 
-export interface GameData {
+export interface Message {
   command: string;
   id?: number;
   hostUserId?: number;
@@ -19,11 +19,11 @@ export interface GameData {
 })
 export class WebsocketService {
   private subject: AnonymousSubject<MessageEvent>;
-  public gameData: Subject<GameData>;
+  public message: Subject<Message>;
 
   constructor() {
-    this.gameData = <Subject<GameData>>this.connect(CHAT_URL).pipe(
-      map((response: MessageEvent): GameData => {
+    this.message = <Subject<Message>>this.connect(CHAT_URL).pipe(
+      map((response: MessageEvent): Message => {
         if (response.data.type != 'ping') {
           console.log(response.data);
         }
