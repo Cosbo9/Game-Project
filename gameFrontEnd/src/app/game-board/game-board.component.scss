@@ -53,39 +53,3 @@ fa-icon {
   line-height: 1;
 }
 
-// --------------- chat box ----------------------
-.gameChat {
-  height: 100%;
-  background: black;
-  color: #44cc2e;
-  border: solid 2px #d12525;
-
-}
-
-.gameChatTitle {
-  text-align: center;
-  padding: 10px 0px;
-  color: black;
-  background-color: #d9d9d9;
-  width: 80%;
-  margin: auto;
-}
-
-.gameChatContent {
-padding: 10% 10%;
-}
-
-.titleCircle {
-display: inline-block;
-background: #FFFF00;
-text-align: center;
-width: 20px;
-height: 20px;
-border-radius: 50%;
-border: solid 1px black;
-}
-
-.titleCircle:first-of-type {
-background: #D12525;
-}
-// --------------- chat box ----------------------
