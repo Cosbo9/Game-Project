@@ -1,12 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { ThrowStmt } from '@angular/compiler';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { ApiService } from '../services/api.service';
 import { GameService } from '../services/game.service';
-import { Message, WebsocketService } from '../services/websocket.service';
+import { Message } from '../services/websocket.service';
 
 @Component({
   selector: 'app-gameplay-screen',
