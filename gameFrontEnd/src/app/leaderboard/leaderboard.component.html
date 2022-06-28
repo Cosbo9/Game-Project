@@ -1,13 +1,31 @@
-<mat-card class="leaderboard">
-  <mat-card-title class="leaderboardTitle">
-    <span class="titleCircle"></span>
-    Leaderboard
-    <span class="titleCircle"></span>
-  </mat-card-title>
-  <mat-card-content class="leaderboardContent">
-      Some players here
-  </mat-card-content>
-  <mat-card-footer>
-    <a routerLink=""> Return to Lobby</a>
-  </mat-card-footer>
-</mat-card>
+<div class="tableContainer">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+                No.
+            </th>
+            <td mat-cell *matCellDef="let user"> {{user.position}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+                Name
+            </th>
+            <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="wins">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+                Wins
+            </th>
+            <td mat-cell *matCellDef="let user"> {{user.wins}} </td>
+        </ng-container>
+        <ng-container matColumnDef="losses">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by symbol">
+                losses
+            </th>
+            <td mat-cell *matCellDef="let user"> {{user.losses}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

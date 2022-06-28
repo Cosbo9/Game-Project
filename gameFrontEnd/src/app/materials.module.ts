@@ -18,6 +18,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table'
+import { MatSortModule } from '@angular/material/sort';
 
 
 const MatMods = [
@@ -36,7 +37,8 @@ const MatMods = [
   MatIconModule,
   MatSelectModule,
   MatPaginatorModule,
-  MatTableModule
+  MatTableModule,
+  MatSortModule,
 
 ]
 
