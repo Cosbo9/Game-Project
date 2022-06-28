@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       post "game/join", to: "game#join"
       post "game/play", to: "game#play_move"
       get "game/:game_id", to: "game#get"
+      get "games", to: "game#get_all_games"
     end
   end
 

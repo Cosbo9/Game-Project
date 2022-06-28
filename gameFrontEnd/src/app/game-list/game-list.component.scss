@@ -3,7 +3,7 @@
     background: black;
     color: #44cc2e;
     border: solid 2px #d12525;
-
+    overflow:auto;
 }
 
 .gameListTitle {
@@ -43,6 +43,10 @@
   bottom: 0;
   padding: 5px;
 
+}
+
+.games{
+    cursor: pointer;
 }
 
 // yellow: #FFFF00

@@ -45,29 +45,42 @@ export class GameplayScreenComponent implements OnInit {
     console.log('subbing with', sub);
     this.socket.gameData.next(sub);
   }
+
   createGame() {
+    console.log('create game used');
     this.http
       .post(environment.apiKey, this.createGameData)
       .subscribe((res: any) => {
-        this.token = res.token.token
+        console.log(res);
+        this.token = res.token;
         this.subToGame(res.game_id);
       });
   }
 
-  playMove(column:number){
-    var gameData ={game:{
-      token: this.token ,
-      game_id: this.gameId,
-      new_move: column
-    }}
-    this.http.post(environment.apiKey+"play", gameData).subscribe()
+  playMove(column: number) {
+    var gameData = {
+      game: {
+        token: this.token,
+        game_id: this.gameId,
+        new_move: column,
+      },
+    };
+    this.http.post(environment.apiKey + 'play', gameData).subscribe();
   }
   ngOnInit(): void {
-    console.log(this.gameData);
+    let storedGame = localStorage.getItem('gameId');
+    this.token = localStorage.getItem('token');
+    console.log('THIS IS THE STORED GAME', storedGame);
+    if (storedGame === null) {
+      this.createGame();
+    } else if (storedGame !== null) {
+      this.subToGame(parseInt(storedGame));
+    }
   }
 
   ngOnDestroy() {
     this.railsSub.unsubscribe();
+    localStorage.clear;
   }
 
   doesGameExist() {
