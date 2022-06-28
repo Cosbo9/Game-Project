@@ -7,7 +7,7 @@ class Api::V1::GameController < ApplicationController
     game = Game.create({ hosting_user: user, moves: "" })
     game.save!
 
-    render json: { game_id: game.id, token: token }
+    render json: { game_id: game.id, token: token.token }
     # GameChannel.broadcast_to(game, {game: game, user: user, token: token})
   end
 
@@ -28,7 +28,8 @@ class Api::V1::GameController < ApplicationController
     end
     game.joining_user = user || found_token.guest_user
     game.save
-    GameChannel.broadcast_to(game, {game: game, user: game.joining_user, token: game.joining_user.tokens[0].token})
+    GameChannel.broadcast_to(game, {game: game, joining_user: game.joining_user})
+    render json: { token: game.joining_user.tokens[0].token }
   end
 
   def get
@@ -67,6 +68,13 @@ class Api::V1::GameController < ApplicationController
     end
     GameChannel.broadcast_to(game, response)
     # render json: response
+  end
+
+  def get_all_games()
+    render json: Game.
+    where(joining_user: nil).
+    where.not(hosting_user: nil).
+    where.not(status: ["host_win", "joining_win", "tie"])
   end
 
   private
