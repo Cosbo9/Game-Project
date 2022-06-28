@@ -1,5 +1,5 @@
 .game {
-  max-height: 50vh;
+  max-height: calc(100vh - 116px);
   // max-width: 60vh;
   aspect-ratio: 1;
 }

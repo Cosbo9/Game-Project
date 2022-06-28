@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { GameData, WebsocketService } from '../services/websocket.service';
@@ -10,8 +10,8 @@ import { GameData, WebsocketService } from '../services/websocket.service';
   templateUrl: './gameplay-screen.component.html',
   styleUrls: ['./gameplay-screen.component.scss'],
 })
-export class GameplayScreenComponent implements OnInit {
-  railsSub;
+export class GameplayScreenComponent implements OnInit, AfterViewInit {
+  railsSub : any;
   gameData: GameData = {
     command: '',
     moves: '',
@@ -24,8 +24,22 @@ export class GameplayScreenComponent implements OnInit {
   gameId: number;
   token: any;
 
-  constructor(private socket: WebsocketService, private http: HttpClient) {
-    this.railsSub = socket.gameData.subscribe((data: any) => {
+  constructor(private socket: WebsocketService, private http: HttpClient) {}
+
+  ngAfterViewInit(): void {
+    console.log("this is after view init")
+    this.railsSub = this.socket.gameData.subscribe((data: any) => {
+      console.log('websocket connected')
+      if (data.type === "welcome"){
+        let storedGame = localStorage.getItem('gameId');
+        this.token = localStorage.getItem('token');
+        console.log('THIS IS THE STORED GAME', storedGame);
+        if (storedGame === null) {
+          this.createGame();
+        } else if (storedGame !== null) {
+          this.subToGame(parseInt(storedGame));
+        }
+      }
       if (data.message?.moves != undefined) {
         this.gameData = data.message;
       }
@@ -44,6 +58,7 @@ export class GameplayScreenComponent implements OnInit {
     };
     console.log('subbing with', sub);
     this.socket.gameData.next(sub);
+
   }
 
   createGame() {
@@ -68,19 +83,22 @@ export class GameplayScreenComponent implements OnInit {
     this.http.post(environment.apiKey + 'play', gameData).subscribe();
   }
   ngOnInit(): void {
-    let storedGame = localStorage.getItem('gameId');
-    this.token = localStorage.getItem('token');
-    console.log('THIS IS THE STORED GAME', storedGame);
-    if (storedGame === null) {
-      this.createGame();
-    } else if (storedGame !== null) {
-      this.subToGame(parseInt(storedGame));
-    }
+    console.log("this is ngoninit")
   }
 
+
+
   ngOnDestroy() {
-    this.railsSub.unsubscribe();
-    localStorage.clear;
+    let unsub = {
+      command: 'unsubscribe',
+      identifier: JSON.stringify({
+        id: this.gameId,
+        channel: 'GameChannel',
+      }),
+    };
+    console.log('unsubbing with', unsub);
+    this.socket.gameData.next(unsub);
+
   }
 
   doesGameExist() {
