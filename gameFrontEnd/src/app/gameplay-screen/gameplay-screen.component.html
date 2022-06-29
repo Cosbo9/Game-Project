@@ -1,21 +1,19 @@
-<div>
-  <mat-card>
-    <header>Player 1 vs Player 2</header>
-  </mat-card>
-
+<div class="container">
   <mat-card class="game"
     ><app-game-board
       [moves]="gameData.moves!"
       (movePlayed)="playMove($event)"
     ></app-game-board
   ></mat-card>
-</div>
 
-<mat-card class="gameChat">
-  <mat-card-title class="gameChatTitle">
-    <span class="titleCircle"></span>
-    Game Chat
-    <span class="titleCircle"></span>
-  </mat-card-title>
-  <mat-card-content class="gameChatContent"> Some chat here </mat-card-content>
-</mat-card>
+  <mat-card class="gameChat">
+    <mat-card-title class="gameChatTitle">
+      <span class="titleCircle"></span>
+      Game Chat
+      <span class="titleCircle"></span>
+    </mat-card-title>
+    <mat-card-content class="gameChatContent">
+      Some chat here
+    </mat-card-content>
+  </mat-card>
+</div>

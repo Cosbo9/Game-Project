@@ -1,18 +1,39 @@
+
+
+@media (max-width: 480px) {
+  .gameChat {
+    position: static;
+  }
+  .container {
+    flex-direction: column;
+  }
+  .game {
+    min-width: calc(100vw - 32px);
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
 .game {
-  max-height: calc(100vh - 148px);
-  // max-width: 60vh;
-  aspect-ratio: 1;
+  max-height: calc(100vh - 96px);
+  flex: 3;
+  * {
+    display: flex;
+    justify-content: center;
+
+  }
 }
 
 // --------------- chat box ----------------------
 .gameChat {
-  height: 100%;
+  height: calc(100vh - 100px);
   background: black;
   color: #44cc2e;
   border: solid 2px #d12525;
-  position: fixed;
-  top: 116px;
-  right: 0;
+  flex: 1;
 
 }
 
