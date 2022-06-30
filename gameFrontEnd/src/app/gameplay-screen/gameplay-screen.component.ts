@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { GameData } from '../models/game-data';
 import { GameService } from '../services/game.service';
 import { Message } from '../services/websocket.service';
 
@@ -10,15 +11,7 @@ import { Message } from '../services/websocket.service';
 })
 export class GameplayScreenComponent implements OnInit {
   railsSub: any;
-  gameData: Message = {
-    command: '',
-    moves: '',
-  };
-  createGameData: {
-    game: {
-      color: string;
-    };
-  };
+  gameData: GameData;
   gameId: number;
   token: any;
 
