@@ -28,7 +28,7 @@ class Api::V1::GameController < ApplicationController
     end
     game.joining_user = user || found_token.guest_user
     game.save
-    GameChannel.broadcast_to(game, {type: "data", game: game, joining_user: game.joining_user})
+    GameChannel.broadcast_to(game, {type: "data", game: game})
     render json: { token: game.joining_user.tokens[0].token }
   end
 
@@ -54,16 +54,12 @@ class Api::V1::GameController < ApplicationController
       
       response = {
         type: "data",
-        game_id: game.id,
-        moves: game.moves,
-        status: game.status,
+        game: game
       }
     else
       response = {
         type: "data",
-        game_id: game.id,
-        moves: game.moves,
-        status: game.status,
+        game: game,
         error: "Incorrect User token"
       }
     end

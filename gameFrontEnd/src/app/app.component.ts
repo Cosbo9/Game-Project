@@ -14,7 +14,10 @@ export class AppComponent {
   ) {
     socket.message.subscribe((data: any) => {
       if (data.type == 'data') {
-        gameService.sendData(data);
+        gameService.sendData(data.game);
+      }
+      if (data.error) {
+        throw data.error;
       }
     });
   }
