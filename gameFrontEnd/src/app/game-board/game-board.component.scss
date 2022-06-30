@@ -22,6 +22,7 @@ table {
 
 tr {
   display: flex;
+  max-width: 100%;
 }
 
 .row {
@@ -46,18 +47,18 @@ tr {
 }
 
 th{
-  max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-basis: auto;
 }
 
 fa-icon {
   height: 100%;
   width: 100%;
-  padding: 2px;
   text-align: center;
   text-justify: center;
   line-height: 1;
 }
+
 

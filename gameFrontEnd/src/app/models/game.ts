@@ -52,8 +52,8 @@ export class Game {
       [],
       []
     ];
-    var movesArray = movesString.split(',')
-    movesArray.forEach(
+    var movesArray = movesString?.split(',')
+    movesArray?.forEach(
       move => {
         var color: string = move.slice(0, -1);
         var column = Number(move.slice(-1))

@@ -13,12 +13,14 @@ export class AppComponent {
     private gameService: GameService
   ) {
     socket.message.subscribe((data: any) => {
-      if (data.type == 'data') {
-        gameService.sendData(data.game);
+
+      if (data?.message?.type == 'data') {
+        gameService.sendData(data.message.game);
       }
-      if (data.error) {
-        throw data.error;
+      if (data?.message?.error) {
+        throw data.message.error;
       }
+      console.log("THIS IS GAME DATA", data)
     });
   }
 
