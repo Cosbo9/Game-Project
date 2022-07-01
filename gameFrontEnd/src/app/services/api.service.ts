@@ -9,7 +9,8 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   createGame() {
-    return this.http.post(environment.apiKey, {});
+    var token = localStorage.getItem('token')
+    return this.http.post(environment.apiKey, {token: token});
   }
 
   joinGame(gameId: number) {

@@ -1,14 +1,17 @@
 class Api::V1::GameController < ApplicationController
   def create
-    user = GuestUser.new
-    user.save
-    token = Token.create({ guest_user: user, token: generate_code(20) })
-    token.save!
+    if user_signed_in?
+      user = current_user
+    else
+      user = GuestUser.new
+      user.save
+      token = Token.create({ guest_user: user, token: generate_code(20) })
+      token.save!
+    end
     game = Game.create({ hosting_user: user, moves: "" })
     game.save!
 
     render json: { game_id: game.id, token: token.token }
-    # GameChannel.broadcast_to(game, {game: game, user: user, token: token})
   end
 
   def join
@@ -42,6 +45,7 @@ class Api::V1::GameController < ApplicationController
     new_move = api_v1_game_params[:new_move]
     if correct_player_turn?(game, api_v1_game_params[:token])
       game_state = GameState.new(game, game.moves, new_move)
+      move_valid = game_state.is_move_valid?
       game_state.handle_turn
       game.moves = game_state.moves
       if game_state.is_a_winner?
@@ -49,7 +53,7 @@ class Api::V1::GameController < ApplicationController
       elsif game_state.is_board_full?
         game.make_game_tie
       end
-      game.switch_player if game_state.is_move_valid?
+      game.switch_player if move_valid
       game.save
       
       response = {
@@ -99,4 +103,5 @@ class Api::V1::GameController < ApplicationController
       return false
     end
   end
+
 end
