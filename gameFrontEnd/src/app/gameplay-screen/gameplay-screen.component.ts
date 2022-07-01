@@ -14,6 +14,7 @@ export class GameplayScreenComponent implements OnInit {
   gameData: GameData = new GameData({})
   gameId: number;
   token: any;
+  winner: string;
 
   constructor(private gameService: GameService, private route: ActivatedRoute) {
     this.gameId = route.snapshot.params['id'];
@@ -23,7 +24,18 @@ export class GameplayScreenComponent implements OnInit {
   ngOnInit(): void {
     this.gameService.gameSubject.subscribe((data) => {
       console.log(data)
-      if (data) { this.gameData = data; }
+      console.log(data.status)
+      if (data) {
+        this.gameData = data;
+      }
+      if (data.status === "host_win") {
+        this.winner = "Red has won"
+        this.gameData = data
+        }
+        if (data.status === "joining_win") {
+          this.winner = "Black has won"
+          this.gameData = data
+        }
 
     });
 
