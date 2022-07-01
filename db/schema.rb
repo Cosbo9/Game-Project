@@ -32,6 +32,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_30_143331) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "skins", force: :cascade do |t|
     t.string "name"
     t.string "host_color"
