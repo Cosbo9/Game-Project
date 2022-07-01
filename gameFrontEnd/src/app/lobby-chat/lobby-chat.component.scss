@@ -15,9 +15,6 @@
     margin: auto;
 }
 
-.lobbyChatContent {
-  padding: 10% 10%;
-}
 
 .titleCircle {
   display: inline-block;
@@ -31,4 +28,55 @@
 
 .titleCircle:first-of-type {
   background: #D12525;
+}
+
+.lobbyChatContent {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: 20% 20px 20px 20px;
+}
+
+.chatOutput {
+  box-sizing: border-box;
+  background: black;
+  height: 90%;
+  border-style: double;
+  border-color: rgba(128, 128, 128, 0.25);
+  padding: 10px;
+}
+
+.chatInputControls {
+  position: absolute;
+  bottom: 20px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatInputForm {
+  box-sizing: border-box;
+  width: 70%;
+}
+
+.inputField {
+  width: 100%;
+}
+
+.chatButton {
+  width: 20%;
+  height: 30px;
+  background: transparent;
+  color: #44cc2e;
+  box-shadow: 0 0 0 2px #44cc2e;
+  border-radius: 6px;
+}
+
+.chatButton:hover {
+  cursor: pointer;
 }
