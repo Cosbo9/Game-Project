@@ -46,7 +46,7 @@ class GameState
       raise 'Given row index is not between 0 and 6'
       return false
     end
-    if @board[column].length >= 6
+    if @board[column].length >= 7
       raise 'Given row has too many chips'
       return false
     end
