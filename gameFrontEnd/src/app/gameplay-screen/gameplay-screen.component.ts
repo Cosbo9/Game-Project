@@ -23,20 +23,23 @@ export class GameplayScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameService.gameSubject.subscribe((data) => {
-      console.log(data)
-      console.log(data.status)
       if (data) {
         this.gameData = data;
       }
-      if (data.status === "host_win") {
-        this.winner = "Red has won"
-        this.gameData = data
+      switch (data.status) {
+        case "host_win": {
+          this.winner = "Red has won"
+          break
         }
-        if (data.status === "joining_win") {
+        case "joining_win": {
           this.winner = "Black has won"
-          this.gameData = data
+          break
         }
-
+        case "tie": {
+          this.winner = "Tie!"
+          break
+        }
+      }
     });
 
     this.gameService.subToGameChannel(this.gameId);
