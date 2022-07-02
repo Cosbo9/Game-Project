@@ -10,7 +10,7 @@ export class ApiService {
 
   createGame() {
     var token = localStorage.getItem('token')
-    return this.http.post(environment.apiKey, {token: token});
+    return token != null ? this.http.post(environment.apiKey, {game: {token: token}}) : this.http.post(environment.apiKey, {"game": {}})
   }
 
   joinGame(gameId: number) {

@@ -31,7 +31,11 @@ export class WebsocketService {
         let data = JSON.parse(response.data);
         return data;
       }),
-      tap(()=>this.connected.next(true))
+      tap((data)=>{
+        if(data.type == "welcome"){
+          this.connected.next(true)
+        }
+      })
     );
   }
 

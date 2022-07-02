@@ -2,7 +2,7 @@ class Api::V1::GameController < ApplicationController
   def create
     if user_signed_in?
       user = current_user
-    elsif api_v1_game_params[:token] != nil
+    elsif api_v1_game_params && api_v1_game_params[:token]
       tokenstring = api_v1_game_params[:token]
       token = Token.find_by token: tokenstring
       user = token.guest_user
@@ -93,7 +93,7 @@ class Api::V1::GameController < ApplicationController
   end
 
   def api_v1_game_params
-    params.require(:game).permit(:color, :game_id, :token, :new_move)
+    params.fetch(:game).permit(:color, :game_id, :token, :new_move)
     # params.permit(:game, :color, :order, :token, :game_id)
   end
 
