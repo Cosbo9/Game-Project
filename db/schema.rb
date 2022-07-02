@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_30_143331) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_02_025932) do
   create_table "games", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -18,6 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_30_143331) do
     t.integer "hosting_user_id"
     t.integer "joining_user_id"
     t.integer "status", default: 0
+    t.string "hosting_user_type"
+    t.string "joining_user_type"
     t.index ["hosting_user_id"], name: "index_games_on_hosting_user_id"
     t.index ["joining_user_id"], name: "index_games_on_joining_user_id"
   end
