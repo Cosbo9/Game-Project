@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, Observer, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Observer, throwError } from 'rxjs';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { GameData } from '../models/game-data';
 
 const CHAT_URL = 'ws://localhost:3000/cable';
@@ -16,9 +16,11 @@ export interface Message {
 @Injectable({
   providedIn: 'root',
 })
+
 export class WebsocketService {
   private subject: AnonymousSubject<MessageEvent>;
   public message: Subject<Message>;
+  public connected: BehaviorSubject<boolean>= new BehaviorSubject<boolean>(false);
 
   constructor() {
     this.message = <Subject<Message>>this.connect(CHAT_URL).pipe(
@@ -28,7 +30,8 @@ export class WebsocketService {
         }
         let data = JSON.parse(response.data);
         return data;
-      })
+      }),
+      tap(()=>this.connected.next(true))
     );
   }
 

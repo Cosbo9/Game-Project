@@ -11,9 +11,10 @@ import { Message } from '../services/websocket.service';
 })
 export class GameplayScreenComponent implements OnInit {
   railsSub: any;
-  gameData: GameData;
+  gameData: GameData = new GameData({})
   gameId: number;
   token: any;
+  winner: string;
 
   constructor(private gameService: GameService, private route: ActivatedRoute) {
     this.gameId = route.snapshot.params['id'];
@@ -22,7 +23,23 @@ export class GameplayScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameService.gameSubject.subscribe((data) => {
-      this.gameData = data;
+      if (data) {
+        this.gameData = data;
+      }
+      switch (data.status) {
+        case "host_win": {
+          this.winner = "Red has won"
+          break
+        }
+        case "joining_win": {
+          this.winner = "Black has won"
+          break
+        }
+        case "tie": {
+          this.winner = "Tie!"
+          break
+        }
+      }
     });
 
     this.gameService.subToGameChannel(this.gameId);

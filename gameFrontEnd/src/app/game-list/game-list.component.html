@@ -4,10 +4,13 @@
         <span class="titleCircle"></span>
     </mat-card-title>
     <mat-card-content class="gameListContent">
-        <!-- insert game list here -->
+      <div class="gameListOutput">
         <div *ngFor="let game of availableGames" class="games" (click)="joinGame(game.id)">
-            Game_{{ game.id }} | Guest_{{ game.hosting_user_id }} | {{ game.status }}
+          Game_{{ game.id }} | Guest_{{ game.hosting_user_id }} | {{ game.status }}
         </div>
+      </div>
+      <div class="gameListControls">
+        <a [routerLink]="['/leaderboard']" class="leaderboardLink">Leaderboard</a>
+      </div>
     </mat-card-content>
-    <a [routerLink]="['/leaderboard']" class="leaderboardLink">Leaderboard</a>
 </mat-card>

@@ -5,15 +5,14 @@ class GameChannel < ApplicationCable::Channel
     game = Game.find(params[:id])
     stream_for(game)
     response = {
-      game_id: game.id,
-      moves: game.moves,
-      status: game.status,
+      type: "data",
+      game: game
     }
     broadcast_to(game, response)
   end
 
   def unsubscribed
-    
+
   end
 
 end

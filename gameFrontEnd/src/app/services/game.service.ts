@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { ApiService } from './api.service';
 import { WebsocketService } from './websocket.service';
 
@@ -7,7 +7,7 @@ import { WebsocketService } from './websocket.service';
   providedIn: 'root',
 })
 export class GameService {
-  gameSubject = new BehaviorSubject<any>({});
+  gameSubject = new Subject<any>();
   constructor(private socket: WebsocketService, private api: ApiService) {}
 
   sendData(data: any) {
@@ -15,27 +15,32 @@ export class GameService {
   }
 
   getData() {
-    return this.gameSubject.getValue();
+    // return this.gameSubject.getValue();
   }
 
   subToGameChannel(gameId: number) {
-    let sub = {
+    this.socket.connected.subscribe((connection: boolean)=>{
+      if (connection){
+          let sub = {
       command: 'subscribe',
-      identifier: {
+      identifier: JSON.stringify({
         id: gameId,
         channel: 'GameChannel',
-      },
+      }),
     };
+    console.log(`Subbing to GameChannel with ID: ${gameId}`)
     this.socket.message.next(sub);
+      }
+    })
   }
 
   unsubFromGameChannel(gameId: number) {
     let unsub = {
       command: 'unsubscribe',
-      identifier: {
+      identifier: JSON.stringify({
         id: gameId,
         channel: 'GameChannel',
-      },
+      }),
     };
     this.socket.message.next(unsub);
   }
