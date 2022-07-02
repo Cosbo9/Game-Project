@@ -14,7 +14,7 @@ export class GameComponent implements OnInit {
 
   newGame() {
     this.apiService.createGame().subscribe((res: any) => {
-      if (!localStorage.getItem('token')) {
+      if (res.token) {
         localStorage.setItem('token', res.token);
       }
       this.router.navigate(['game', res.game_id]);

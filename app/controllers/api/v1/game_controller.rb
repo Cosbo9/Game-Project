@@ -2,6 +2,10 @@ class Api::V1::GameController < ApplicationController
   def create
     if user_signed_in?
       user = current_user
+    elsif api_v1_game_params[:token] != nil
+      tokenstring = api_v1_game_params[:token]
+      token = Token.find_by token: tokenstring
+      user = token.guest_user
     else
       user = GuestUser.new
       user.save
@@ -11,7 +15,11 @@ class Api::V1::GameController < ApplicationController
     game = Game.create({ hosting_user: user, moves: "" })
     game.save!
 
-    render json: { game_id: game.id, token: token.token }
+    if game.hosting_user_type == "User"
+      render json: { game_id: game.id }
+    else
+      render json: { game_id: game.id, token: token.token }
+    end
   end
 
   def join
