@@ -22,11 +22,11 @@ export class GameListComponent implements OnInit {
     this.http
       .get(environment.games)
       .subscribe((games) => (this.availableGames = games));
-    //   setInterval(() => {
-    //     this.http
-    //       .get(environment.games)
-    //       .subscribe((games) => (this.availableGames = games));
-    //   }, 10000);
+      // setInterval(() => {
+      //   this.http
+      //     .get(environment.games)
+      //     .subscribe((games) => (this.availableGames = games));
+      // }, 10000);
   }
 
   joinGame(id: number) {

@@ -1,7 +1,5 @@
 <div class="container">
-    <mat-card class="game">
-        <app-game-board [moves]="gameData.moves!" (movePlayed)="playMove($event)"></app-game-board>
-    </mat-card>
+        <app-game-board [moves]="gameData.moves!" (movePlayed)="playMove($event)" class="game"></app-game-board>
 
     <div *ngIf="winner" class="winnerBanner">
         <mat-card>

@@ -1,93 +1,94 @@
 mat-toolbar {
-    display: flex;
-    background-color: #888888;
-    align-content: center;
+  max-width: 100vw;
+  overflow: hidden;
+  display: flex;
+  background-color: #888888;
+  align-content: center;
 }
 
 .titleDisplay {
-    margin-bottom: 0;
-    margin-left: 1em;
-    color: black;
+  margin-bottom: 0;
+  margin-left: 1em;
+  color: black;
 }
 
 .titleClick:hover {
   cursor: pointer
-
 }
 
 .header {
-    margin-left: auto;
-    display: flex;
-    gap: 16px;
-    vertical-align: middle;
+  margin-left: auto;
+  display: flex;
+  gap: 16px;
+  vertical-align: middle;
 }
 
 .mat-stroked-button {
-    border-color: white;
+  border-color: white;
 }
 
 button {
-    color: white !important;
+  color: white !important;
 }
 
 p {
-    margin-bottom: 0;
-    color: black;
-    font-size: xx-large;
-    font-weight: 800;
+  margin-bottom: 0;
+  color: black;
+  font-size: xx-large;
+  font-weight: 800;
 
 }
 
 .signUp {
-    margin-left: 3em;
-    font-weight: 200;
-    padding-top: 20px;
+  margin-left: 3em;
+  font-weight: 200;
+  padding-top: 20px;
 }
 
 .signIn {
-    padding-top: 20px;
+  padding-top: 20px;
 }
 
 .avatar {
-    text-align: center;
-    width: 200px;
+  text-align: center;
+  width: 200px;
 }
 
 .userName {
-    font-size: small;
-    text-align: center;
+  font-size: small;
+  text-align: center;
 }
 
 .avatar img {
-    width: 35px;
-    display: block;
-    margin: auto;
-    // border-right: 1px solid #888888;
-    // padding-right: 1em;
-    padding-top: 12px;
+  width: 35px;
+  display: block;
+  margin: auto;
+  // border-right: 1px solid #888888;
+  // padding-right: 1em;
+  padding-top: 12px;
 }
 
 // ------------------------------------------------
 .guestAvatar {
-    text-align: center;
-    width: 200px;
+  text-align: center;
+  width: 200px;
 }
 
 .guestName {
-    font-size: small;
-    text-align: center;
+  font-size: small;
+  text-align: center;
 }
 
 .guestAvatar img {
-    width: 35px;
-    display: block;
-    margin: auto;
-    // border-right: 1px solid #888888;
-    // padding-right: 1em;
-    padding-top: 12px;
+  width: 35px;
+  display: block;
+  margin: auto;
+  // border-right: 1px solid #888888;
+  // padding-right: 1em;
+  padding-top: 12px;
 }
 
 // --------------------------------------------------------------
 .signOut {
-    padding-top: 20px;
+  padding-top: 20px;
 }

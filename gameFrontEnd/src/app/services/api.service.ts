@@ -14,8 +14,9 @@ export class ApiService {
   }
 
   joinGame(gameId: number) {
+    var token = localStorage.getItem('token')
     return this.http.post(environment.apiKey + 'join', {
-      game: { game_id: gameId },
+      game: { game_id: gameId, token: token },
     });
   }
 
