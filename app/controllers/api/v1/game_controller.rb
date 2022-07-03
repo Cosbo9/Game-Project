@@ -27,20 +27,27 @@ class Api::V1::GameController < ApplicationController
     if game.full?
       return render json: "game is full", :status => :bad_request
     end
-    if !api_v1_game_params[:token]
+    if user_signed_in?
+      user = current_user
+    elsif api_v1_game_params && api_v1_game_params[:token]
+      tokenstring = api_v1_game_params[:token]
+      token = Token.find_by token: tokenstring
+      user = token.guest_user
+    else
       user = GuestUser.new
       user.save
       token = Token.create({ guest_user: user, token: generate_code(20) })
-    else
-      found_token = Token.find_by({ token: api_v1_game_params[:token] })
-      if found_token == nil || found_token.guest_user == game.hosting_user
-        return render json: "Bad token", :status => 401
-      end
+      token.save!
     end
-    game.joining_user = user || found_token.guest_user
-    game.save
-    GameChannel.broadcast_to(game, {type: "data", game: game})
-    render json: { token: game.joining_user.tokens[0].token }
+    if game.hosting_user == user
+      throw "Given User is already Host"
+      render json: {error: "Given User is already Host"}, :status => :bad_request
+    else
+      game.joining_user = user
+      game.save
+      GameChannel.broadcast_to(game, {type: "data", game: game})
+    end
+    render json: { token: token } if game.joining_user_type == "GuestUser"
   end
 
   def get

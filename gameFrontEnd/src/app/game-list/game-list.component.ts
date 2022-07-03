@@ -31,7 +31,9 @@ export class GameListComponent implements OnInit {
 
   joinGame(id: number) {
     this.api.joinGame(id).subscribe((res: any) => {
-      localStorage.setItem('token', res.token);
+      if (res.token) {
+        localStorage.setItem('token', res.token);
+      }
       this.router.navigate(['game', id]);
     });
   }
