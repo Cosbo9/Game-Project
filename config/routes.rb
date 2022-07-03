@@ -16,11 +16,12 @@ Rails.application.routes.draw do
       post "game/play", to: "game#play_move"
       get "game/:game_id", to: "game#get"
       get "games", to: "game#get_all_games"
-      post "message", to: "messages#create"
+      # post "message", to: "messages#create"
+      post "game/message", to: "messages#send_game_message"
+      post "lobby/message" to "messages#send_lobby_message"
+
     end
   end
 
   mount ActionCable.server => "/cable"
-  # Defines the root path route ("/")
-  # root "articles#index"
 end
