@@ -4,6 +4,10 @@ class Game < ApplicationRecord
 
     enum status: [ :host_turn, :joining_turn, :host_win, :joining_win, :tie]
 
+    def as_json(options={})
+      super(include: [:hosting_user, :joining_user])
+    end
+
     def full?
       hosting_user != nil && joining_user != nil
     end
