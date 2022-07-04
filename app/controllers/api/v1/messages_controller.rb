@@ -9,11 +9,13 @@ class Api::V1::MessagesController < ApplicationController
 
     def send_game_message
       game = Game.find(message_params[:game_id])
-      broadcast_to(game, {message: {user: message_params[:user], body: message_params[:body]}})
+      message = {user: message_params[:user], body: message_params[:body]}
+      broadcast_to(game, {type: "game_message", message: message})
     end
-
+    
     def send_lobby_message
-      broadcast("lobby", {message: {user: message_params[:user], body: message_params[:body]}})
+      message = {user: message_params[:user], body: message_params[:body]}
+      broadcast("lobby", {type: "lobby_message", message: message})
     end
 
     private
