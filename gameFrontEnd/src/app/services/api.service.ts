@@ -9,12 +9,14 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   createGame() {
-    var token = localStorage.getItem('token')
-    return token != null ? this.http.post(environment.apiKey, {game: {token: token}}) : this.http.post(environment.apiKey, {"game": {}})
+    var token = localStorage.getItem('token');
+    return token != null
+      ? this.http.post(environment.apiKey, { game: { token: token } })
+      : this.http.post(environment.apiKey, { game: {} });
   }
 
   joinGame(gameId: number) {
-    var token = localStorage.getItem('token')
+    var token = localStorage.getItem('token');
     return this.http.post(environment.apiKey + 'join', {
       game: { game_id: gameId, token: token },
     });
@@ -28,5 +30,9 @@ export class ApiService {
         new_move: move,
       },
     });
+  }
+
+  sendLobbyMessage(message: string) {
+    return this.http.post(environment.apiKey + 'lobby/message', message);
   }
 }

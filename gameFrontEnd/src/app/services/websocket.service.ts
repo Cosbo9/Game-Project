@@ -16,11 +16,12 @@ export interface Message {
 @Injectable({
   providedIn: 'root',
 })
-
 export class WebsocketService {
   private subject: AnonymousSubject<MessageEvent>;
   public message: Subject<Message>;
-  public connected: BehaviorSubject<boolean>= new BehaviorSubject<boolean>(false);
+  public connected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor() {
     this.message = <Subject<Message>>this.connect(CHAT_URL).pipe(
@@ -31,9 +32,9 @@ export class WebsocketService {
         let data = JSON.parse(response.data);
         return data;
       }),
-      tap((data)=>{
-        if(data.type == "welcome"){
-          this.connected.next(true)
+      tap((data) => {
+        if (data.type == 'welcome') {
+          this.connected.next(true);
         }
       })
     );

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { ApiService } from './api.service';
 import { WebsocketService } from './websocket.service';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { WebsocketService } from './websocket.service';
 export class LobbyService {
   lobbySub = new Subject();
 
-  constructor(private socket: WebsocketService) {}
+  constructor(private socket: WebsocketService, private api: ApiService) {}
 
   sendMessage(data: any) {
     this.lobbySub.next(data);
@@ -37,5 +38,9 @@ export class LobbyService {
       }),
     };
     this.socket.message.next(unsub);
+  }
+
+  postMessage(message: string) {
+    return this.api.sendLobbyMessage(message);
   }
 }

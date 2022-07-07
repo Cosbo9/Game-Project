@@ -1,24 +1,32 @@
 <mat-card class="lobbyChat">
-    <mat-card-title class="lobbyChatTitle">
-      <span class="titleCircle"></span>
-      Lobby Chat
-      <span class="titleCircle"></span>
-    </mat-card-title>
-    <mat-card-content class="lobbyChatContent">
-      <div class="chatOutput">
-        <!-- loop through messages here -->
-        some chat text here
+  <mat-card-title class="lobbyChatTitle">
+    <span class="titleCircle"></span>
+    Lobby Chat
+    <span class="titleCircle"></span>
+  </mat-card-title>
+  <mat-card-content class="lobbyChatContent">
+    <div class="chatOutput">
+      <!-- loop through messages here -->
+      <div *ngFor="let message of messageList">
+        <p>
+          <strong> {{ message.user }}:</strong> {{ message.body }}
+        </p>
       </div>
-      <div class="chatInputControls">
-        <form [formGroup]="messageForm" class="chatInputForm">
-          <mat-form-field class="inputField">
-            <mat-label>Say:</mat-label>
-            <input
-              matInput
-              formControlName="message">
-          </mat-form-field>
-        </form>
-        <button type="button" (click)="onSendMessage(messageForm)" class="chatButton">Send</button>
-      </div>
-    </mat-card-content>
+    </div>
+    <div class="chatInputControls">
+      <form [formGroup]="messageForm" class="chatInputForm">
+        <mat-form-field class="inputField">
+          <mat-label>Say:</mat-label>
+          <input matInput formControlName="message" />
+        </mat-form-field>
+      </form>
+      <button
+        type="button"
+        (click)="onSendMessage(messageForm)"
+        class="chatButton"
+      >
+        Send
+      </button>
+    </div>
+  </mat-card-content>
 </mat-card>
