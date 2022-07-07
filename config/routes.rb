@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       get "games", to: "game#get_all_games"
       # post "message", to: "messages#create"
       post "game/message", to: "messages#send_game_message"
-      post "lobby/message" to "messages#send_lobby_message"
+      post "lobby/message", to: "messages#send_lobby_message"
 
     end
   end
