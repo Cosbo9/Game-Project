@@ -1,20 +1,29 @@
 <div class="container">
-        <app-game-board [moves]="gameData.moves!" (movePlayed)="playMove($event)" class="game"></app-game-board>
+  <app-game-board
+    [moves]="gameData.moves!"
+    (movePlayed)="playMove($event)"
+    class="game"
+  ></app-game-board>
 
-    <div *ngIf="winner" class="winnerBanner">
-        <mat-card>
-            <h1>{{winner}}</h1>
-        </mat-card>
-        <a routerLink="">Home</a>
-    </div>
-
-    <mat-card class="gameChat">
-        <mat-card-title class="gameChatTitle">
-            <span class="titleCircle"></span> Game Chat
-            <span class="titleCircle"></span>
-        </mat-card-title>
-        <mat-card-content class="gameChatContent">
-            Some chat here
-        </mat-card-content>
+  <div *ngIf="winner" class="winnerBanner">
+    <mat-card>
+      <h1>{{ winner }}</h1>
     </mat-card>
+    <a routerLink="">Home</a>
+  </div>
+
+  <mat-card class="gameChat">
+    <mat-card-title class="gameChatTitle">
+      <span class="titleCircle"></span> Game Chat
+      <span class="titleCircle"></span>
+    </mat-card-title>
+    <mat-card-content class="gameChatContent">
+      <div *ngFor="let message of gameChatMessages">
+        <p>
+          <strong>{{ message.user }}</strong
+          >: {{ message.body }}
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

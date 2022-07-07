@@ -35,4 +35,8 @@ export class ApiService {
   sendLobbyMessage(message: string) {
     return this.http.post(environment.apiKey + 'lobby/message', message);
   }
+
+  sendGameChatMessage(message: string) {
+    return this.http.post(environment.apiKey + 'game/message', message);
+  }
 }
