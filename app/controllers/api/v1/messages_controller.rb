@@ -9,19 +9,28 @@ class Api::V1::MessagesController < ApplicationController
 
     def send_game_message
       game = Game.find(message_params[:game_id])
-      message = {user: message_params[:user], body: message_params[:body]}
+      if user_signed_in?
+        username = current_user.email.split('@')[0] 
+      end
+      if message_params[:token] != nil
+        user = Token.find_by(token, message_params[:token]).guest_user
+        username = "Guest_#{guest_user.id}"  
+      end
+      message = {user: username, body: message_params[:body]}
       broadcast_to(game, {type: "game_message", message: message})
     end
     
     def send_lobby_message
-      message = {user: message_params[:user], body: message_params[:body]}
+      user = current_user if user_signed_in?
+      username = user.email.split('@')[0]
+      message = {user: username, body: message_params[:body]}
       broadcast("lobby", {type: "lobby_message", message: message})
     end
 
     private
 
     def message_params
-        params.require(:message).permit(:body, :user, :game_id)
+        params.require(:message).permit(:body, :token, :game_id)
     end
 
 end

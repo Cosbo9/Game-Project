@@ -11,19 +11,19 @@ export class ApiService {
   createGame() {
     var token = localStorage.getItem('token');
     return token != null
-      ? this.http.post(environment.apiKey, { game: { token: token } })
-      : this.http.post(environment.apiKey, { game: {} });
+      ? this.http.post(environment.game, { game: { token: token } })
+      : this.http.post(environment.game, { game: {} });
   }
 
   joinGame(gameId: number) {
     var token = localStorage.getItem('token');
-    return this.http.post(environment.apiKey + 'join', {
+    return this.http.post(environment.game + 'join', {
       game: { game_id: gameId, token: token },
     });
   }
 
   playMove(id: number, move: number, token: string) {
-    return this.http.post(environment.apiKey + 'play', {
+    return this.http.post(environment.game + 'play', {
       game: {
         token: token,
         game_id: id,
@@ -32,11 +32,11 @@ export class ApiService {
     });
   }
 
-  sendLobbyMessage(message: string) {
-    return this.http.post(environment.apiKey + 'lobby/message', message);
+  sendLobbyMessage(body: string) {
+    return this.http.post(environment.apiKey + 'lobby/message', body);
   }
 
-  sendGameChatMessage(message: string) {
-    return this.http.post(environment.apiKey + 'game/message', message);
+  sendGameChatMessage(body: string) {
+    return this.http.post(environment.apiKey + 'game/message', body);
   }
 }

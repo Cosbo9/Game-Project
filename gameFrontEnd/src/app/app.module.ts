@@ -13,11 +13,12 @@ import { GameComponent } from './game/game.component';
 import { GameBoardComponent } from './game-board/game-board.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { GameplayScreenComponent } from './gameplay-screen/gameplay-screen.component';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationComponent } from './header/authentication/authentication.component';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DeviseInterceptor } from './devise-interceptor';
 
 
 @NgModule({
@@ -44,7 +45,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserAnimationsModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: DeviseInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

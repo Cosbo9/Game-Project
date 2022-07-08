@@ -2,7 +2,7 @@ class Api::V1::GameController < ApplicationController
   def create
     if user_signed_in?
       user = current_user
-    elsif api_v1_game_params && api_v1_game_params[:token]
+    elsif api_v1_game_params && api_v1_game_params[:token].starts_with?("GUEST")
       tokenstring = api_v1_game_params[:token]
       token = Token.find_by token: tokenstring
       user = token.guest_user
@@ -29,7 +29,7 @@ class Api::V1::GameController < ApplicationController
     end
     if user_signed_in?
       user = current_user
-    elsif api_v1_game_params && api_v1_game_params[:token]
+    elsif api_v1_game_params && api_v1_game_params[:token].starts_with?('GUEST')
       tokenstring = api_v1_game_params[:token]
       token = Token.find_by token: tokenstring
       user = token.guest_user
@@ -47,7 +47,9 @@ class Api::V1::GameController < ApplicationController
       game.save
       GameChannel.broadcast_to(game, {type: "data", game: game})
     end
-    render json: { token: token } if game.joining_user_type == "GuestUser"
+    render json: { game_id: game.id, token: token } if game.joining_user_type == "GuestUser"
+    render json: { game_id: game.id } if game.joining_user_type == "User"
+
   end
 
   def get
@@ -106,9 +108,12 @@ class Api::V1::GameController < ApplicationController
 
 
   def correct_player_turn?(game, token)
+  
     if game.status == "host_turn"
+      return true if user_signed_in? && game.hosting_user == current_user
       user = GuestUser.find(game.hosting_user_id)
     elsif game.status == "joining_turn"
+      return true if user_signed_in? && game.joining_user == current_user
       user = GuestUser.find(game.joining_user_id)
     end
     if user.tokens[0].token == token

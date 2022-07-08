@@ -52,6 +52,7 @@ export class AuthenticationComponent implements OnInit {
 
   onSignUp(data: any) {
     this.auth.signUp({user: data.value}).subscribe(res => {
+      console.log(res)
       const token = res.headers.get('Authorization')!
       localStorage.setItem('token', token)
       this.closeDialog()
