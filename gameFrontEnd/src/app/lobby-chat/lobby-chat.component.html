@@ -5,19 +5,17 @@
     <span class="titleCircle"></span>
   </mat-card-title>
   <mat-card-content class="lobbyChatContent">
-    <div class="chatOutput">
+    <div class="chatOutput" #chatOutput>
       <!-- loop through messages here -->
-      <div *ngFor="let message of messageList">
-        <p>
-          <strong> {{ message.user }}:</strong> {{ message.body }}
+        <p *ngFor="let message of messageList">
+          <span> {{ message.user }}:</span> {{ message.body }}
         </p>
-      </div>
     </div>
     <div class="chatInputControls">
       <form [formGroup]="messageForm" class="chatInputForm">
         <mat-form-field class="inputField">
           <mat-label>Say:</mat-label>
-          <input matInput formControlName="message" />
+          <input matInput formControlName="message"  (keydown.enter)="onSendMessage(messageForm)" #input/>
         </mat-form-field>
       </form>
       <button

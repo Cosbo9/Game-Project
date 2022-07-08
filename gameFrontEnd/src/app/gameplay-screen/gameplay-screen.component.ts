@@ -1,5 +1,6 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { GameData } from '../models/game-data';
 import { ChatService } from '../services/chat.service';
@@ -18,6 +19,9 @@ export class GameplayScreenComponent implements OnInit {
   gameId: number;
   token: any;
   winner: string;
+  messageForm = new FormGroup({
+    message: new FormControl(null),
+  });
 
   constructor(
     private gameService: GameService,
@@ -70,7 +74,9 @@ export class GameplayScreenComponent implements OnInit {
       return true;
     }
   }
-  sendGameChatMessage(message: string) {
-    this.gameChat.postGameChatMessage(message);
+
+
+  onSendMessage(message: any) {
+    this.gameChat.postGameChatMessage(message).subscribe;
   }
 }

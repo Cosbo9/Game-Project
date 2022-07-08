@@ -24,6 +24,21 @@
           >: {{ message.body }}
         </p>
       </div>
+      <div class="chatInputControls">
+        <form [formGroup]="messageForm" class="chatInputForm">
+          <mat-form-field class="inputField">
+            <mat-label>Say:</mat-label>
+            <input matInput formControlName="message" />
+          </mat-form-field>
+        </form>
+        <button
+          type="button"
+          (click)="onSendMessage(messageForm)"
+          class="chatButton"
+        >
+          Send
+        </button>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

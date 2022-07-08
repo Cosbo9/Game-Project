@@ -2,10 +2,10 @@ class Api::V1::GameController < ApplicationController
   def create
     if user_signed_in?
       user = current_user
-    elsif api_v1_game_params && api_v1_game_params[:token].starts_with?("GUEST")
-      tokenstring = api_v1_game_params[:token]
-      token = Token.find_by token: tokenstring
-      user = token.guest_user
+    elsif api_v1_game_params && api_v1_game_params[:token]
+        tokenstring = api_v1_game_params[:token]
+        token = Token.find_by token: tokenstring
+        user = token.guest_user
     else
       user = GuestUser.new
       user.save
@@ -29,10 +29,10 @@ class Api::V1::GameController < ApplicationController
     end
     if user_signed_in?
       user = current_user
-    elsif api_v1_game_params && api_v1_game_params[:token].starts_with?('GUEST')
-      tokenstring = api_v1_game_params[:token]
-      token = Token.find_by token: tokenstring
-      user = token.guest_user
+    elsif api_v1_game_params && api_v1_game_params[:token]
+        tokenstring = api_v1_game_params[:token]
+        token = Token.find_by token: tokenstring
+        user = token.guest_user
     else
       user = GuestUser.new
       user.save
