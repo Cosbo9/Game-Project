@@ -94,11 +94,13 @@ class GameState
     left_most_column = column
     
     while (@board[left_most_column][row] == color)
+      break if left_most_column == 0
       break if @board[left_most_column - 1][row] != color
       left_most_column -= 1
     end
 
     return false if left_most_column >= 4 #guards against using [] against a column that doesn't exist.
+
 
     first = @board[left_most_column][row]
     second = @board[left_most_column + 1][row]

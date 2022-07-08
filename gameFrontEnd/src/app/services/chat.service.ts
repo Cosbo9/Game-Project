@@ -17,6 +17,6 @@ export class ChatService {
   }
 
   postGameChatMessage(message: string) {
-    this.api.sendGameChatMessage(message);
+    return this.api.sendGameChatMessage(message);
   }
 }

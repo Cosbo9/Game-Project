@@ -23,14 +23,14 @@ class Api::V1::MessagesController < ApplicationController
     def send_lobby_message
       user = current_user if user_signed_in?
       username = user.email.split('@')[0]
-      message = {user: username, body: message_params[:body]}
-      broadcast("lobby", {type: "lobby_message", message: message})
+      complete_message = {user: username, body: message_params[:message]}
+      ActionCable.server.broadcast("lobby", {type: "lobby_message", message: complete_message})
     end
 
     private
 
     def message_params
-        params.require(:message).permit(:body, :token, :game_id)
+        params.require(:message).permit(:body, :token, :game_id, :message)
     end
 
 end

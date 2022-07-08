@@ -74,6 +74,7 @@
 
 .chatOutput {
   display: flex;
+  flex-direction: column;
   width: 100%;
   margin: 0px;
   margin-top: 16px !important;
@@ -86,7 +87,16 @@
   border-style: double;
   border-color: rgba(128, 128, 128, 0.25);
   overflow-y: auto;
-
+  padding: 1em;
+  p {
+    width: 100%;
+    word-break: break-all;
+    margin-bottom: .2em;
+    span {
+      font-weight: 800;
+      color: #d9d9d9;
+    }
+  }
   div {
     width: 100%;
   }
