@@ -1,0 +1,51 @@
+.leaderboard {
+    width: 80vw;
+    height: calc(80vh - 64px);
+    margin: 20px auto;
+}
+
+.leaderboardTitle {
+    text-align: center;
+    padding: 10px 0px;
+    color: black;
+    background-color: #d9d9d9;
+    width: 50%;
+    margin: auto;
+}
+
+.titleCircle {
+    display: inline-block;
+    background: #FFFF00;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: solid 1px black;
+    margin: 0 50px;
+}
+
+.titleCircle:first-of-type {
+    background: #D12525;
+}
+
+mat-card-footer {
+    cursor: pointer;
+    text-align: center;
+}
+
+// .lobbyChat {
+//   height: 100%;
+//   background: black;
+//   color: #44cc2e;
+//   border: solid 2px #d12525;
+// }
+// .lobbyChatContent {
+// padding: 10% 10%;
+// }
+.tableContainer {
+    display: flex;
+    justify-content: center;
+    table {
+        width: 85%;
+    }
+}

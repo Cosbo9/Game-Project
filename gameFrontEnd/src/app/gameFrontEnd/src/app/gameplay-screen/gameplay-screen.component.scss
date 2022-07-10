@@ -1,0 +1,86 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    flex-direction: column;
+    align-items: inherit !important;
+  }
+  .gameChat{
+    max-width: 100% !important;
+    margin-top: 12.5vw;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-height: 100%;
+  align-items: center;
+}
+
+
+
+// --------------- chat box ----------------------
+.gameChat {
+  max-height: 90vh;
+  max-width: 30%;
+  height: calc(100vh - 100px);
+  background: black;
+  color: #44cc2e;
+  border: solid 2px #d12525;
+  flex: 1;
+
+}
+
+.gameChatTitle {
+  text-align: center;
+  padding: 10px 0px;
+  color: black;
+  background-color: #d9d9d9;
+  width: 80%;
+  margin: auto;
+}
+
+.gameChatContent {
+  padding: 10% 10%;
+}
+
+.titleCircle {
+  display: inline-block;
+  background: #FFFF00;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: solid 1px black;
+}
+
+.titleCircle:first-of-type {
+  background: #D12525;
+}
+
+// --------------- chat box ----------------------
+.winnerBanner {
+  position: absolute;
+  top: 30%;
+  display: flex;
+
+  mat-card {
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: grey;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      text-align: center;
+      color: black;
+    }
+  }
+}

@@ -5,7 +5,9 @@ class Api::V1::GameController < ApplicationController
     elsif api_v1_game_params && api_v1_game_params[:token]
         tokenstring = api_v1_game_params[:token]
         token = Token.find_by token: tokenstring
-        user = token.guest_user
+        if token
+          user = token.guest_user
+        end
     else
       user = GuestUser.new
       user.save

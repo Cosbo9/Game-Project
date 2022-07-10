@@ -1,0 +1,57 @@
+.lobby {
+  height: calc(100vh - 64px);
+}
+
+.listContainers {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    height: auto;
+  }
+}
+
+.listBox {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+}
+
+
+// .gameButton {
+//   display: flex;
+//   align-items: center;
+// }
+
+// P {
+//   color: white;
+// }
+
+// .lobbyChatTitle{
+//   font-size: x-large;
+//   text-align: center;
+// }
+
+// .gameListTitle{
+//   font-size: x-large;
+//   text-align: center;
+// }
+
+// .gameListText{
+//   font-size: small;
+//   color: #44cc2e;
+//   background-color: black;
+
+// }
+
+// .chatText{
+//   font-size: small;
+//   color: #44cc2e;
+//   background-color: black;
+
+// }
