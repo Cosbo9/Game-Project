@@ -8,15 +8,10 @@ import { WebsocketService } from './websocket.service';
 })
 export class GameService {
   gameSubject = new Subject<any>();
-  gameChatSubject = new Subject();
   constructor(private socket: WebsocketService, private api: ApiService) {}
 
   sendData(data: any) {
     this.gameSubject.next(data);
-  }
-
-  sendMessage(message: any) {
-    this.gameChatSubject.next(message);
   }
 
   getData() {

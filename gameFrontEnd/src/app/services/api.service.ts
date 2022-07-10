@@ -33,10 +33,11 @@ export class ApiService {
   }
 
   sendLobbyMessage(body: string) {
-    return this.http.post(environment.apiKey + 'lobby/message', {message: body});
+    return this.http.post(environment.apiKey + 'lobby/message', body);
   }
 
-  sendGameChatMessage(body: string) {
-    return this.http.post(environment.apiKey + 'game/message', {message: body});
+  sendGameChatMessage(body: string, id: number, token: string | null) {
+    let postData = { message: body, game_id: id, token: token };
+    return this.http.post(environment.apiKey + 'game/message', postData);
   }
 }

@@ -1,5 +1,6 @@
+import { HttpParams } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { GameData } from '../models/game-data';
@@ -13,6 +14,7 @@ import { Message } from '../services/websocket.service';
   styleUrls: ['./gameplay-screen.component.scss'],
 })
 export class GameplayScreenComponent implements OnInit {
+  @ViewChild('input') input: ElementRef;
   gameChatMessages: any[] = [];
   railsSub: any;
   gameData: GameData = new GameData({});
@@ -51,9 +53,11 @@ export class GameplayScreenComponent implements OnInit {
           break;
         }
       }
-      this.gameChat.gameChatSub.subscribe((message: any) => {
-        this.gameChatMessages.push(message);
-      });
+    });
+
+    this.gameChat.gameChatSub.subscribe((message: any) => {
+      console.log('game chat subscription recieved message:' + message);
+      this.gameChatMessages.push(message);
     });
 
     this.gameService.subToGameChannel(this.gameId);
@@ -75,8 +79,14 @@ export class GameplayScreenComponent implements OnInit {
     }
   }
 
-
-  onSendMessage(message: any) {
-    this.gameChat.postGameChatMessage(message).subscribe;
+  onSendMessage(data: any) {
+    this.gameChat
+      .postMessage(
+        data.value.message,
+        this.gameId,
+        localStorage.getItem('token')
+      )
+      .subscribe();
+    this.input.nativeElement.value = '';
   }
 }

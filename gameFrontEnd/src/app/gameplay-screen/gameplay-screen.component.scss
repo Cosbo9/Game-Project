@@ -33,20 +33,46 @@
   color: #44cc2e;
   border: solid 2px #d12525;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-basis: auto;
+  overflow: hidden;
+
+    @media (max-width: 1000px) {
+      margin: 0px;
+      border: 0px;
+      height: 40vh;
+    }
 
 }
 
 .gameChatTitle {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  height: fit-content;
   text-align: center;
-  padding: 10px 0px;
+  padding: 1vh;
   color: black;
-  background-color: #d9d9d9;
-  width: 80%;
-  margin: auto;
-}
+  background: #d9d9d9;
+  width: 100%;
+  margin: 0px;
+  font-size: 2vw;
+  font-weight: bold;
+  line-height: 1;
 
+  @media (max-width: 1000px) {
+    font-size: 5vw;
+  }
+}
 .gameChatContent {
-  padding: 10% 10%;
+  box-sizing: border-box;
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  height: 80%;
+  width: 100%;
+  // padding: 20% 20px 20px 20px;
 }
 
 .titleCircle {
@@ -82,5 +108,65 @@
       text-align: center;
       color: black;
     }
+  }
+}
+
+.chatInputControls {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-basis: 1;
+  justify-content: center;
+}
+
+.chatInputForm {
+  box-sizing: border-box;
+  width: 70%;
+}
+
+.inputField {
+  width: 100%;
+}
+
+.chatButton {
+  width: 20%;
+  height: 30px;
+  background: transparent;
+  color: #44cc2e;
+  box-shadow: 0 0 0 2px #44cc2e;
+  border-radius: 6px;
+}
+
+.chatButton:hover {
+  cursor: pointer;
+}
+
+.chatOutput {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0px;
+  margin-top: 16px !important;
+  margin-bottom: 16px;
+  // margin-bottom:auto;
+  box-sizing: border-box;
+  background: black;
+  height: 90%;
+  max-height: 90%;
+  border-style: double;
+  border-color: rgba(128, 128, 128, 0.25);
+  overflow-y: auto;
+  padding: 1em;
+  p {
+    width: 100%;
+    word-break: break-all;
+    margin-bottom: .2em;
+    span {
+      font-weight: 800;
+      color: #d9d9d9;
+    }
+  }
+  div {
+    width: 100%;
   }
 }

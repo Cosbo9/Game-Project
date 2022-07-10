@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ChatService } from './services/chat.service';
 import { GameService } from './services/game.service';
 import { LobbyService } from './services/lobby.service';
 import { WebsocketService } from './services/websocket.service';
@@ -11,8 +12,9 @@ import { WebsocketService } from './services/websocket.service';
 export class AppComponent {
   constructor(
     private socket: WebsocketService,
-    private gameService: GameService,
-    private lobbyService: LobbyService
+    private chatService: ChatService,
+    private lobbyService: LobbyService,
+    private gameService: GameService
   ) {
     socket.message.subscribe((data: any) => {
       if (data?.message?.type == 'data') {
@@ -22,7 +24,7 @@ export class AppComponent {
         this.lobbyService.sendMessage(data.message.message);
       }
       if (data?.message?.type == 'chat_message') {
-        this.gameService.sendMessage(data.message.message);
+        this.chatService.sendMessage(data.message.message);
       }
       if (data?.message?.error) {
         throw data.message.error;

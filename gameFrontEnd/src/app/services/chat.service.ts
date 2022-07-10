@@ -16,7 +16,7 @@ export class ChatService {
     this.gameChatSub.next(message);
   }
 
-  postGameChatMessage(message: string) {
-    return this.api.sendGameChatMessage(message);
+  postMessage(message: string, id: number, token: string | null = null) {
+    return this.api.sendGameChatMessage(message, id, token);
   }
 }
