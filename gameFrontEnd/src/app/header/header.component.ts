@@ -8,12 +8,11 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
-  username = "UserName";
-  guestname = "GuestName";
+  username: string | null = '';
+  guestname = 'GuestName';
   routeParamsSub: Subscription;
 
   constructor(
@@ -21,36 +20,34 @@ export class HeaderComponent implements OnInit {
     public dialog: MatDialog,
     private auth: AuthService
   ) {
-    this.routeParamsSub = this.route.queryParams.subscribe(params => {
+    this.routeParamsSub = this.route.queryParams.subscribe((params) => {
       if (params['auth']) {
-        this.openAuthDialog(params['auth'])
+        this.openAuthDialog(params['auth']);
       }
-    })
-   }
+    });
+  }
 
   ngOnInit(): void {
+    this.username = localStorage.getItem('user');
   }
 
   isLoggedIn() {
-    return this.auth.isLoggedIn()
+    return this.auth.isLoggedIn();
   }
 
   onLogout() {
-    this.auth.signOut()
+    this.auth.signOut();
   }
 
   openAuthDialog(params: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = {auth: params};
+    dialogConfig.data = { auth: params };
 
     const dialogRef = this.dialog.open(AuthenticationComponent, dialogConfig);
-
   }
-
 }
 function AuthComponent(AuthComponent: any, dialogConfig: MatDialogConfig<any>) {
   throw new Error('Function not implemented.');
 }
-

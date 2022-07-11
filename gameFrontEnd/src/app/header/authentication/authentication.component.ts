@@ -7,17 +7,16 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
-  styleUrls: ['./authentication.component.scss']
+  styleUrls: ['./authentication.component.scss'],
 })
 export class AuthenticationComponent implements OnInit {
-
   signUp: boolean = false;
   signIn: boolean = false;
   authType: any;
 
   authForm = new FormGroup({
-    'email': new FormControl(null),
-    'password': new FormControl(null),
+    email: new FormControl(null),
+    password: new FormControl(null),
     // 'passwordConfirm': new FormControl(null)
   });
 
@@ -29,42 +28,48 @@ export class AuthenticationComponent implements OnInit {
     private auth: AuthService
   ) {
     this.authType = dialogData.auth;
-    if (dialogData.auth == 'sign_up') {this.signUp = true}
-    else if (dialogData.auth == 'sign_in') {this.signIn = true};
+    if (dialogData.auth == 'sign_up') {
+      this.signUp = true;
+    } else if (dialogData.auth == 'sign_in') {
+      this.signIn = true;
+    }
   }
 
   ngOnInit(): void {}
 
   submitDialog(formData: any) {
-    let mergedData = {...formData.value, auth: this.authType}
+    let mergedData = { ...formData.value, auth: this.authType };
     this.dialogRef.close(mergedData);
-    this.router.navigate([], {relativeTo: this.route});
+    this.router.navigate([], { relativeTo: this.route });
     this.signUp = false;
     this.signIn = false;
   }
 
   closeDialog() {
     this.dialogRef.close();
-    this.router.navigate([], {relativeTo: this.route});
+    this.router.navigate([], { relativeTo: this.route });
     this.signUp = false;
     this.signIn = false;
   }
 
   onSignUp(data: any) {
-    this.auth.signUp({user: data.value}).subscribe(res => {
-      console.log(res)
-      const token = res.headers.get('Authorization')!
-      localStorage.setItem('token', token)
-      this.closeDialog()
-    })
+    this.auth.signUp({ user: data.value }).subscribe((res: any) => {
+      const user = res.body.data.email.split('@')[0];
+      const token = res.headers.get('Authorization')!;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', user);
+      this.closeDialog();
+    });
   }
 
   onSignIn(data: any) {
-    this.auth.signIn({user: data.value}).subscribe(res => {
-      const token = res.headers.get('Authorization')!
-      localStorage.setItem('token', token)
-      this.closeDialog()
-      console.log(res)
-    })
+    this.auth.signIn({ user: data.value }).subscribe((res: any) => {
+      const user = res.body.data.email.split('@')[0];
+      const token = res.headers.get('Authorization')!;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', user);
+      this.closeDialog();
+      console.log(res);
+    });
   }
 }
