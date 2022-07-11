@@ -11,15 +11,13 @@ class Api::V1::MessagesController < ApplicationController
       game = Game.find(message_params[:game_id])
       if user_signed_in?
         username = current_user.email.split('@')[0] 
-      elsif message_params[:token]
-        token = Token.find_by token: message_params[:token]
-        if token
-          user = token.guest_user
-          username = "Guest_#{user.id}"  
-        end
       end
-      message = {user: username, body: message_params[:message]}
-      GameChannel.broadcast_to(game, {type: "chat_message", message: message})
+      if message_params[:token] != nil
+        user = Token.find_by(token, message_params[:token]).guest_user
+        username = "Guest_#{guest_user.id}"  
+      end
+      message = {user: username, body: message_params[:body]}
+      broadcast_to(game, {type: "game_message", message: message})
     end
     
     def send_lobby_message
@@ -32,7 +30,7 @@ class Api::V1::MessagesController < ApplicationController
     private
 
     def message_params
-        params.permit(:body, :token, :game_id, :message)
+        params.require(:message).permit(:body, :token, :game_id, :message)
     end
 
 end
