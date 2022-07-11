@@ -11,12 +11,17 @@
           class="games"
           (click)="joinGame(game.id)"
         >
-          Game {{ game.id }}
+          Game {{ game.id }} --
+          {{
+            game.hosting_user_type === "User"
+              ? game.hosting_user.email.split("@")[0]
+              : "Guest " + game.hosting_user.id
+          }}
         </div>
       </div>
     </div>
-    <div class="gameListControls">
+    <!-- <div class="gameListControls">
       <a [routerLink]="['/leaderboard']" class="leaderboardLink">Leaderboard</a>
-    </div>
+    </div> -->
   </mat-card-content>
 </mat-card>

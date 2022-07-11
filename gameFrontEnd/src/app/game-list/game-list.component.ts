@@ -19,14 +19,15 @@ export class GameListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.http
-      .get(environment.games)
-      .subscribe((games) => (this.availableGames = games));
-      // setInterval(() => {
-      //   this.http
-      //     .get(environment.games)
-      //     .subscribe((games) => (this.availableGames = games));
-      // }, 10000);
+    this.http.get(environment.games).subscribe((games) => {
+      this.availableGames = games;
+      console.log(games);
+    });
+    // setInterval(() => {
+    //   this.http
+    //     .get(environment.games)
+    //     .subscribe((games) => (this.availableGames = games));
+    // }, 10000);
   }
 
   joinGame(id: number) {

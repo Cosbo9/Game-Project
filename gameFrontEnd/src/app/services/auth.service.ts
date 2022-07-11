@@ -7,28 +7,35 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-
-  constructor(private http: HttpClient, private router: Router) { }
-
+  constructor(private http: HttpClient, private router: Router) {}
 
   signUp(info: any) {
-    console.log(info)
-    return this.http.post("http://localhost:3000/signup", info, { observe: 'response' })
+    console.log(info);
+    return this.http.post('http://localhost:3000/signup', info, {
+      observe: 'response',
+    });
   }
 
   signIn(info: any) {
-    return this.http.post("http://localhost:3000/login", info, { observe: "response" })
+    return this.http.post('http://localhost:3000/login', info, {
+      observe: 'response',
+    });
   }
 
   signOut() {
     localStorage.removeItem('token');
-    this.router.navigate(['/'])
+    this.router.navigate(['/']);
   }
 
   getUser() {}
 
   isLoggedIn() {
-    return this.getToken() ? true : false;
+    let token = this.getToken();
+    if (token.length === 20 || token === '') {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   getToken(): string {
