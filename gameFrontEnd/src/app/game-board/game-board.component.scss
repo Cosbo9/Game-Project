@@ -4,10 +4,6 @@
   max-height: 90vh;
   justify-content: center;
   aspect-ratio: 1;
-
-  @media (max-width: 1000px) {
-    max-height: fit-content;
-  }
 }
 
 table {

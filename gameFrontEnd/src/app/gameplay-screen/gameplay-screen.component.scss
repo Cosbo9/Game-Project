@@ -1,14 +1,9 @@
 :host {
   display: flex;
   width: 100%;
-  height: calc(91%);
-  @media (max-width: 1000px) {
-    height: auto;
-  }
 }
 
 @media (max-width: 1000px) {
-
   .container {
     flex-direction: column;
     align-items: inherit !important;

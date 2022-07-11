@@ -100,9 +100,6 @@
   div {
     width: 100%;
   }
-  @media (max-width: 1000px) {
-    height: 70%;
-  }
 }
 
 
@@ -134,13 +131,4 @@
 
 .chatButton:hover {
   cursor: pointer;
-}
-
-mat-card-actions {
-  background-color: black;
-  width: 100%;
-  margin: 0%;
-  form{
-    width: 100%;
-  }
 }
